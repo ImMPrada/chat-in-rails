@@ -31,6 +31,8 @@ class Users::SessionsController < Devise::SessionsController
     if user.valid_password?(user_password)
       set_flash_message :notice, :signed_in
       sign_in(user)
+
+      redirect_to profile_path(user)
     else
       wrong_credentials
     end
