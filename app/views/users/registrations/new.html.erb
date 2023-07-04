@@ -1,38 +1,46 @@
-<div class="mx-auto self-center">
-  <h2 class="text-white">create yout account</h2>
+<div class="mx-auto self-center w-3/5">
+  <h2 class="block text-white mb-6 text-center text-xl">create yout account</h2>
 
-  <%= form_for(
-    :user,
-    as: resource_name,
-    url: registration_path(resource_name)) do |f| %>
+  <%=
+    form_with(
+      model: @user,
+      url: user_registration_path(@user),
+      class: "flex flex-col gap-2"
+    ) do |form| 
+  %>
 
-    <%= render partial: 'partials/form_fields/email', locals: {
-      form: f,
-      model_field: :email,
-      resource:
-    } %>
+      <%= render partial: 'partials/form_fields/email', locals: {
+        form:,
+        model_field: :email,
+        resource:,
+        placeholder: nil
+      } %>
 
-    <%= render partial: 'partials/form_fields/username', locals: {
-      form: f,
-      model_field: :username,
-      resource:
-    } %>
+      <%= render partial: 'partials/form_fields/username', locals: {
+        form:,
+        model_field: :username,
+        resource:,
+        placeholder: nil
+      } %>
 
-    <%= render partial: 'partials/form_fields/password', locals: {
-      form: f,
-      model_field: :password,
-      resource:
-    } %>
+      <%= render partial: 'partials/form_fields/password', locals: {
+        form:,
+        model_field: :password,
+        resource:,
+        placeholder: nil
+      } %>
 
-    <%= render partial: 'partials/form_fields/password_confirmation', locals: {
-      form: f,
-      model_field: :password_confirmation,
-      resource:
-    } %>
+      <%= render partial: 'partials/form_fields/password_confirmation', locals: {
+        form:,
+        model_field: :password_confirmation,
+        resource:,
+        placeholder: nil
+      } %>
 
-    <div class="actions btn">
-      <%= f.submit "Sign up" %>
-    </div>
+      <div class="flex justify-between mt-4">
+        <%= form.submit "Sign up", class: "block btn" %>
+        <%= link_to "Log in", new_user_session_path, turbo: false, class: "block btn w-auto bg-grey-soft hover:bg-blue" %>
+      </div>
   <% end %>
 
   <%= render "users/shared/links" %>

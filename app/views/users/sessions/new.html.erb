@@ -1,0 +1,52 @@
+<div class="mx-auto self-center w-3/5">
+  <h2 class="block text-white mb-6 text-center text-xl">loggin</h2>
+
+  <%=
+    form_with(
+      model: @user,
+      as: resource_name,
+      url: session_path(resource_name),
+      class: "flex flex-col gap-2"
+    ) do |form| 
+  %>
+
+      <%= render partial: 'partials/form_fields/username', locals: {
+        form:,
+        model_field: :username_or_email,
+        resource:,
+        placeholder: "#{Faker::Internet.username} || #{Faker::Internet.email}"
+      } %>
+
+      <%= render partial: 'partials/form_fields/password', locals: {
+        form:,
+        model_field: :password,
+        resource:,
+        placeholder: nil
+      } %>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field text-white">
+          <%= form.check_box :remember_me %>
+          <%= form.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="flex justify-between mt-4">
+        <%= form.submit "Log in", class: "block btn" %>
+        <div class="flex gap-2">
+          <%= link_to(
+            "Sign up",
+            new_user_registration_path,
+            turbo: false,
+            class: "block btn w-auto bg-grey-soft hover:bg-blue"
+          ) %>
+          <%= link_to(
+            "Forgot your password?",
+            new_user_password_path,
+            turbo: false,
+            class: "block btn w-auto bg-grey-soft hover:bg-blue"
+          ) %>
+        </div>
+      </div>
+  <% end %>
+</div>
