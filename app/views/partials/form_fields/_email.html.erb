@@ -1,12 +1,13 @@
-<div class="field text-black">
-  <div class="field-input">
-    <%= form.label model_field %><br />
-    <%= form.email_field model_field, autofocus: true, autocomplete: "email" %>
+<div class="field">
+  <div class="field-header min-w-full">
+    <%= form.label model_field, class: "text-white" %>
+    <span class="text-red"><%= resource.errors.messages[model_field].first %></span>
   </div>
-  <div class="field-errors text-white">
-    <% email_error = resource.errors.find { |error| error.attribute == model_field } %>
-    <%if email_error %>
-      <%= email_error.full_message %>
-    <% end %>
-  </div>
+  <%= form.email_field(
+    model_field,
+    autofocus: true,
+    autocomplete: "email",
+    placeholder: placeholder || Faker::Internet.email,
+    class: "text-black min-w-full"
+  ) %>
 </div>
