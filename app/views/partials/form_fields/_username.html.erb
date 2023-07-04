@@ -1,0 +1,12 @@
+<div class="field text-black">
+  <div class="field-input">
+    <%= form.label model_field %><br />
+    <%= form.text_field model_field, autofocus: true, autocomplete: "email" %>
+  </div>
+  <div class="field-errors text-white">
+    <% username_error = resource.errors.find { |error| error.attribute == model_field } %>
+    <%if username_error %>
+      <%= username_error.full_message %>
+    <% end %>
+  </div>
+</div>
