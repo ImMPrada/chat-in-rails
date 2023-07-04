@@ -21,7 +21,10 @@ module.exports = {
       'grey-soft': '#828282',
       'blue': '#3081ED',
       'white': '#ffffff',
-      'red': '#EB5657'
+      'red-soft': '#FDA4AF',
+      'red': '#BE113C',
+      'green-soft': '#BBF7D0',
+      'green': '#18A34A'
     }
   },
   plugins: [
