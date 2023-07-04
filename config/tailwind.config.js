@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Noto Sans', 'sans-serif'],
       },
     },
     colors: {
@@ -25,6 +25,29 @@ module.exports = {
       'red': '#BE113C',
       'green-soft': '#BBF7D0',
       'green': '#18A34A'
+    },
+    fontSize: {
+      'l': [
+        '1.5rem',
+        {
+          lineHeight: '1.4',
+          letter: '-3.4px'
+        },
+      ],
+      'base': [
+        '1rem',
+        {
+          lineHeight: '1.4',
+          letter: '-3.4px'
+        },
+      ],
+      'sm': [
+        '0.875rem',
+        {
+          lineHeight: '1.4',
+          letter: '-3.4px'
+        },
+      ],
     }
   },
   plugins: [

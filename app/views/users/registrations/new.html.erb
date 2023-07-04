@@ -1,11 +1,11 @@
-<div class="mx-auto self-center w-3/5">
-  <h2 class="block text-white mb-6 text-center text-xl">create yout account</h2>
+<div class="mx-auto self-center w-1/4">
+  <h2 class="block text-white mb-6 text-center text-l">CREATE YOUR ACCOUNT</h2>
 
   <%=
     form_with(
       model: @user,
       url: user_registration_path(@user),
-      class: "flex flex-col gap-2"
+      class: "flex flex-col gap-4"
     ) do |form| 
   %>
 
@@ -23,26 +23,24 @@
         placeholder: nil
       } %>
 
-      <%= render partial: 'partials/form_fields/password', locals: {
-        form:,
-        model_field: :password,
-        resource:,
-        placeholder: nil
-      } %>
+        <%= render partial: 'partials/form_fields/password', locals: {
+          form:,
+          model_field: :password,
+          resource:,
+          placeholder: nil
+        } %>
 
-      <%= render partial: 'partials/form_fields/password_confirmation', locals: {
-        form:,
-        model_field: :password_confirmation,
-        resource:,
-        placeholder: nil
-      } %>
+        <%= render partial: 'partials/form_fields/password_confirmation', locals: {
+          form:,
+          model_field: :password_confirmation,
+          resource:,
+          placeholder: nil
+        } %>
 
-      <div class="flex justify-between mt-4">
+      <div class="flex flex-col gap-1 mt-2">
         <%= form.submit "Sign up", class: "block btn" %>
-        <%= link_to "Log in", new_user_session_path, turbo: false, class: "block btn w-auto bg-grey-soft hover:bg-blue" %>
+        <%= link_to "Do you have an account? you can sign in here", new_user_session_path, turbo: false, class: "block btn w-auto bg-grey-soft hover:bg-blue" %>
       </div>
   <% end %>
-
-  <%= render "users/shared/links" %>
 </div>
 
