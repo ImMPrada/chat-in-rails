@@ -7,7 +7,7 @@ class WorkspacesController < ApplicationController
 
   def create
     @workspace_creator = Workspaces::Creator.new(workspace_params, current_user)
-    # return invalid_workspace unless workspace_creator.workspace_valid?
+    return invalid_workspace unless workspace_creator.workspace_valid?
 
     valid_workspace
   rescue StandardError => e
