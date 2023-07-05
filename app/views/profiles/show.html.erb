@@ -1,1 +1,29 @@
-profiles#show
+<div class="flex flex-col mx-auto justify-between w-full sm:w-1/4">
+  <h2 class="block text-white text-center text-l mt-6 mb-12">
+    MY PROFILE
+  </h2>
+
+  <div class="flex flex-col gap-2 w-full">
+    <img
+      class="rounded-full
+             w-2/4
+             mx-auto
+             bg-grey-soft
+             border-black-dark"
+      src=<%= @user.avatar_url %>
+    >
+    <h3 class="block text-white mx-auto">
+      <%= @user.username %>
+    </h3>
+  </div>
+
+  <div class="flex flex-col gap-2 w-full mb-6">
+    <%= link_to(
+      "Log out",
+      destroy_user_session_path,
+      data: { "turbo-method": :delete },
+      class: "block btn w-auto bg-blue rounded-lg hover:bg-blue"
+    ) %>
+  </div>
+
+</div>
