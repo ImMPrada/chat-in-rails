@@ -48,7 +48,7 @@ module.exports = {
           letter: '-3.4px'
         },
       ],
-    }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
