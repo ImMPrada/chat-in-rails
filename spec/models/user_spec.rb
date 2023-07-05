@@ -13,5 +13,16 @@ RSpec.describe User, type: :model do
       it { is_expected.to allow_value('email@addresse.foo').for(:email) }
       it { is_expected.not_to allow_value('foo').for(:email) }
     end
+
+    describe 'username format' do
+      it { is_expected.to allow_value('username').for(:username) }
+      it { is_expected.to allow_value('username123').for(:username) }
+      it { is_expected.to allow_value('us3rname').for(:username) }
+      it { is_expected.to allow_value('user_name').for(:username) }
+      it { is_expected.to allow_value('user-name').for(:username) }
+      it { is_expected.to allow_value('user.name').for(:username) }
+      it { is_expected.not_to allow_value('user name').for(:username) }
+      it { is_expected.not_to allow_value('user@name').for(:username) }
+    end
   end
 end

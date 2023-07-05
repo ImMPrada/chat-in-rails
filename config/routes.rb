@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
-    passwords: "users/passwords"
+    passwords: 'users/passwords'
   }
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "profiles#show"
+  root 'profiles#show'
 
   resources :profiles, only: [:show]
 end

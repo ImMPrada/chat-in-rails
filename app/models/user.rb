@@ -5,7 +5,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :username,
+            presence: true,
+            uniqueness: { case_sensitive: false },
+            format: {
+              with: /\A[a-zA-Z0-9_.-]*\z/,
+              message: 'only allows letters, numbers, underscores, periods, and dashes'
+            }
 
   private
 
