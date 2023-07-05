@@ -16,6 +16,6 @@ class User < ApplicationRecord
   private
 
   def add_avatar_url
-    self.avatar_url = "https://api.dicebear.com/6.x/bottts/svg?seed=#{self.username}"
+    self.avatar_url = "https://api.dicebear.com/6.x/bottts/svg?seed=#{CGI.escape(username)}"
   end
 end

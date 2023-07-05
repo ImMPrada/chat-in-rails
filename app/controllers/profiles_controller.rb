@@ -2,6 +2,6 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user = params[:id] ? User.find(params[:id]) : current_user
+    @user = User.find(params[:id])
   end
 end

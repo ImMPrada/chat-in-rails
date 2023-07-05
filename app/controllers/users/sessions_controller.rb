@@ -3,18 +3,6 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
-  SIGN_IN_ERRORS = Struct.new(:username_or_email, :password)
-
-  SIGN_ING_STRUCT = Struct.new(:username_or_email, :password, :errors) do
-    def valid?
-      return true unless username_or_email.nil? || password.nil?
-
-      self.errors = SIGN_IN_ERRORS.new
-      errors.username_or_email = 'you need the username or the email' if username_or_email.nil?
-      errors.password = 'you need the username or the email' if password.nil?
-    end
-  end
-
   # GET /resource/sign_in
   def new
     @user = User.new
