@@ -14,4 +14,9 @@ RSpec.describe Workspace, type: :model do
       it { is_expected.not_to allow_value('RUBY/rules').for(:name) }
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:workspace_users).dependent(:destroy) }
+    it { is_expected.to have_many(:users).through(:workspace_users) }
+  end
 end

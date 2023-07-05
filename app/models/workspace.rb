@@ -7,6 +7,9 @@ class Workspace < ApplicationRecord
               message: 'only allows letters, numbers'
             }
 
+  has_many :workspace_users, dependent: :destroy
+  has_many :users, through: :workspace_users
+
   private
 
   def add_avatar_url
