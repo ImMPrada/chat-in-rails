@@ -1,0 +1,44 @@
+<div class="mx-auto self-center w-full sm:w-1/4">
+  <h2 class="block text-white mb-12 text-center text-l">LOG IN</h2>
+
+  <%=
+    form_with(
+      model: @user,
+      as: resource_name,
+      url: session_path(resource_name),
+      class: "flex flex-col gap-4"
+    ) do |form| 
+  %>
+
+      <%= render partial: 'partials/form_fields/username', locals: {
+        form:,
+        model_field: :username_or_email,
+        resource:,
+        placeholder: "#{Faker::Internet.username} || #{Faker::Internet.email}"
+      } %>
+
+      <%= render partial: 'partials/form_fields/password', locals: {
+        form:,
+        model_field: :password,
+        resource:,
+        placeholder: nil
+      } %>
+
+      <div class="flex flex-col gap-1 mt-6">
+        <%= form.submit "Log in", class: "block btn rounded-t-lg" %>
+        <span class="block text-center text-white text-sm"> or </span>
+        <%= link_to(
+          "Sign up",
+          new_user_registration_path,
+          turbo: false,
+          class: "block btn w-auto bg-grey-soft mb-1 hover:bg-blue"
+        ) %>
+        <%= link_to(
+          "Forgot your password?",
+          new_user_password_path,
+          turbo: false,
+          class: "block btn w-auto bg-grey-soft rounded-b-lg mt-1 hover:bg-blue"
+        ) %>
+      </div>
+  <% end %>
+</div>

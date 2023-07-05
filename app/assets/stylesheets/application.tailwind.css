@@ -2,12 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
+
 
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  .btn {
+    @apply bg-blue text-center text-white py-2 px-4 hover:rounded-lg hover:cursor-pointer;
+  }
+  .notice {
+    @apply sticky min-w-full bg-green-soft text-center text-green;
+  }
+  .alert {
+    @apply block sticky top-0 min-w-full bg-red-soft text-center text-red;
+  }
+  .field {
+    @apply flex flex-col gap-1;
+  }
+  .field-header {
+    @apply flex justify-between font-sans text-base;
+  }
+  .field-input {
+    @apply font-sans
+      text-white 
+      outline-none
+      min-w-full
+      rounded-lg
+      bg-grey
+      border-black
+      px-4
+      py-3
+      focus:outline-none
+      focus:ring-0
+      focus:border-grey-soft;
   }
 }
-
-*/
