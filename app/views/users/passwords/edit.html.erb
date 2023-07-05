@@ -1,0 +1,42 @@
+<div class="mx-auto self-center w-full sm:w-1/4">
+  <h2 class="block text-white mb-12 text-center text-l">CHANGE YOUR PASSWORD</h2>
+
+  <%= form_for(
+    resource,
+    as: resource_name,
+    url: password_path(resource_name),
+    html: { method: :put }) do |form| %>
+    <%= form.hidden_field :reset_password_token %>
+
+    <%= render partial: 'partials/form_fields/password', locals: {
+      form:,
+      model_field: :password,
+      resource:,
+      placeholder: nil
+    } %>
+
+    <%= render partial: 'partials/form_fields/password_confirmation', locals: {
+      form:,
+      model_field: :password_confirmation,
+      resource:,
+      placeholder: nil
+    } %>
+
+    <div class="flex flex-col gap-1 mt-6">
+      <%= form.submit "Change my password", class: "block btn rounded-t-lg" %>
+      <span class="block text-center text-white text-sm"> or </span>
+      <%= link_to(
+        "Sign up",
+        new_user_registration_path,
+        turbo: false,
+        class: "block btn w-auto bg-grey-soft mb-1 hover:bg-blue"
+      ) %>
+      <%= link_to(
+        "Sign in",
+        new_user_session_path,
+        turbo: false,
+        class: "block btn w-auto bg-grey-soft rounded-b-lg hover:bg-blue"
+      ) %>
+    </div>
+  <% end %>
+</div>
