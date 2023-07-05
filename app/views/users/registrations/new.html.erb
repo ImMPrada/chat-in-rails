@@ -1,5 +1,5 @@
-<div class="mx-auto self-center w-1/4">
-  <h2 class="block text-white mb-6 text-center text-l">CREATE YOUR ACCOUNT</h2>
+<div class="mx-auto self-center w-full sm:w-1/4">
+  <h2 class="block text-white mb-12 text-center text-l">CREATE YOUR ACCOUNT</h2>
 
   <%=
     form_with(
@@ -37,9 +37,10 @@
           placeholder: nil
         } %>
 
-      <div class="flex flex-col gap-1 mt-2">
-        <%= form.submit "Sign up", class: "block btn" %>
-        <%= link_to "Do you have an account? you can sign in here", new_user_session_path, turbo: false, class: "block btn w-auto bg-grey-soft hover:bg-blue" %>
+      <div class="flex flex-col gap-1 mt-6">
+        <%= form.submit "Sign up", class: "block btn rounded-t-lg" %>
+        <span class="block text-center text-white text-sm"> or </span>
+        <%= link_to "Sign in", new_user_session_path, turbo: false, class: "block btn w-auto bg-grey-soft rounded-b-lg hover:bg-blue" %>
       </div>
   <% end %>
 </div>
