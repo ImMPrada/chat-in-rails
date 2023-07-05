@@ -1,4 +1,6 @@
 class Workspace < ApplicationRecord
+  before_create :add_avatar_url
+
   validates :name,
             presence: true,
             uniqueness: { case_sensitive: false },

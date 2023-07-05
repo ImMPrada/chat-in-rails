@@ -1,0 +1,22 @@
+<h2 class="text-white"> add a new workspace </h2>
+<%=  turbo_frame_tag "new_workspace_form" do %>
+  <%=
+    form_with(
+      model: @workspace,
+      url: workspaces_path(@workspace),
+      class: "flex flex-col gap-2"
+    ) do |form| 
+  %>
+      <%= render partial: 'partials/form_fields/text_field', locals: { 
+        form: form,
+        model_field: :name,
+        resource: @workspace,
+        placeholder: "My new Workspace name",
+        extra_classes: "rounded-none",
+      } %>
+
+      <div class="flex flex-col gap-1">
+        <%= form.submit "Log in", class: "block btn rounded-b-lg" %>
+      </div>
+  <% end %>
+<% end %>
