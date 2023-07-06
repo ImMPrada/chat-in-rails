@@ -1,6 +1,8 @@
 class WorkspacesController < ApplicationController
   before_action :authenticate_user!
 
+  def show; end
+
   def new
     @workspace = Workspace.new
   end
