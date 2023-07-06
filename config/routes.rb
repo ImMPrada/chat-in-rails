@@ -12,5 +12,5 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show]
 
-  resource :workspaces, only: %i[new create]
+  resources :workspaces, only: %i[show new create]
 end
