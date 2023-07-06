@@ -28,6 +28,7 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:workspace_users).dependent(:destroy) }
+    it { is_expected.to have_many(:channel_users).dependent(:destroy) }
     it { is_expected.to have_many(:workspaces).through(:workspace_users) }
     it { is_expected.to have_many(:roles).through(:workspace_users) }
   end

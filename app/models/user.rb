@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :workspace_users, dependent: :destroy
   has_many :workspaces, through: :workspace_users
   has_many :roles, through: :workspace_users
+  has_many :channel_users, dependent: :destroy
 
   private
 
