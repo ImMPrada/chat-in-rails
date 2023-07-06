@@ -25,4 +25,10 @@ RSpec.describe User, type: :model do
       it { is_expected.not_to allow_value('user@name').for(:username) }
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:workspace_users).dependent(:destroy) }
+    it { is_expected.to have_many(:workspaces).through(:workspace_users) }
+    it { is_expected.to have_many(:roles).through(:workspace_users) }
+  end
 end

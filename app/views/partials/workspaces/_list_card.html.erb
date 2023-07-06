@@ -1,0 +1,15 @@
+<div class="text-white font-sans text-base">
+  <a
+    href=<%= workspace_path(workspace) %>
+    class="block flex w-ful gap-2 border border-grey py-4 px-4 rounded-lg bg-black hover:border-blue"
+  >
+    <img
+      src=<%= workspace.avatar_url %>
+      width="40"
+      class="rounded border-black-dark"
+    >
+    <span class="block self-center">
+      <%= workspace.name %>
+    </span>
+  </a>
+</div>

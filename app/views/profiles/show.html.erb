@@ -1,20 +1,48 @@
-<div class="flex flex-col mx-auto justify-between w-full sm:w-1/4">
-  <h2 class="block text-white text-center text-l mt-6 mb-12">
-    MY PROFILE
-  </h2>
+<div class="flex flex-col mx-auto gap-6 justify-between w-full md:w-1/3">
+  <div class="flex-col gap-4">
+    <h2 class="block text-white text-center font-sans text-l mt-6 mb-12">
+      MY PROFILE
+    </h2>
 
-  <div class="flex flex-col gap-2 w-full">
-    <img
-      class="rounded-full
-             w-2/4
-             mx-auto
-             bg-grey-soft
-             border-black-dark"
-      src=<%= @user.avatar_url %>
-    >
-    <h3 class="block text-white mx-auto">
-      <%= @user.username %>
-    </h3>
+    <div class="flex flex-col gap-6 w-full">
+      <div class="flex flex-col gap-4">
+        <img
+          class="rounded-full
+                w-1/3
+                md:w-1/4
+                mx-auto
+                bg-grey-soft
+                border-black-dark"
+          src=<%= @user.avatar_url %>
+        >
+
+        <h3 class="block text-white text-center text-base font-sans">
+          <%= @user.username %>
+        </h3>
+
+        <%= link_to(
+          "create a workspace",
+          new_workspace_path,
+          data: {
+            turbo_frame: "new_workspace_form",
+            turbo_frame_loading: "eager"
+          },
+          class: "block btn w-auto bg-blue rounded"
+        ) %>
+
+        <%= turbo_frame_tag "new_workspace_form" %>
+      </div>
+
+      <div
+        id="my_workspaces_list"
+        class="flex flex-col gap-2 w-full"
+      >
+        <%= render partial: 'partials/workspaces/list', locals: { 
+          workspaces: @workspaces
+        } %>
+      </div>
+
+    </div>
   </div>
 
   <div class="flex flex-col gap-2 w-full mb-6">
@@ -22,7 +50,7 @@
       "Log out",
       destroy_user_session_path,
       data: { "turbo-method": :delete },
-      class: "block btn w-auto bg-blue rounded-lg hover:bg-blue"
+      class: "block btn w-auto bg-blue rounded hover:bg-blue"
     ) %>
   </div>
 

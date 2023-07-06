@@ -13,6 +13,10 @@ class User < ApplicationRecord
               message: 'only allows letters, numbers, underscores, periods, and dashes'
             }
 
+  has_many :workspace_users, dependent: :destroy
+  has_many :workspaces, through: :workspace_users
+  has_many :roles, through: :workspace_users
+
   private
 
   def add_avatar_url

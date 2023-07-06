@@ -1,0 +1,9 @@
+<h4 class="text-white text-l font-sans text-center mb-2">
+  <%= workspaces.blank? ? 'You are not member of any workspace yet' : 'You are member of:' %>
+</h4>
+
+<% workspaces.each do |workspace| %>
+  <%= render partial: 'partials/workspaces/list_card', locals: { 
+    workspace:
+  } %>
+<% end %>
