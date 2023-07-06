@@ -1,7 +1,12 @@
 class WorkspacesController < ApplicationController
   before_action :authenticate_user!
 
-  def show; end
+  layout 'workspace', only: %i[show]
+
+  def show
+    @workspace = Workspace.find(params[:id])
+    @members = @workspace.users
+  end
 
   def new
     @workspace = Workspace.new
@@ -9,11 +14,11 @@ class WorkspacesController < ApplicationController
 
   def create
     @workspace_creator = Workspaces::Creator.new(workspace_params, current_user)
-    return invalid_workspace unless workspace_creator.workspace_valid?
+    return return_by_error unless workspace_creator.workspace_valid?
 
     valid_workspace
   rescue StandardError => e
-    return_by_error(e.message)
+    return_by_error(message: e.message)
   end
 
   private
@@ -24,29 +29,40 @@ class WorkspacesController < ApplicationController
     params.require(:workspace).permit(:name)
   end
 
-  def invalid_workspace
-    flash[:alert] = workspace_creator.errors.full_messages.join(', ')
-    redirect_to profile_path(current_user)
+  def return_by_error(message: nil)
+    locals = {
+      classes: 'alert',
+      message: message || workspace_creator.errors.full_messages.join(', ')
+    }
+
+    render turbo_stream: [
+      turbo_stream.update(:notifications_bar,
+                          partial: 'partials/bar_notification',
+                          locals:)
+    ]
   end
 
   def valid_workspace
-    new_workspace = workspace_creator.commit
-    flash.now[:notice] = "#{workspace_creator.name} created successfully"
+    workspace_creator.commit
 
-    update_user_workspaces(new_workspace)
+    update_user_workspaces(
+      current_user.workspaces,
+      {
+        classes: 'notice',
+        message: "#{workspace_creator.name} created successfully"
+      }
+    )
   end
 
-  def return_by_error(message)
-    flash[:alert] = message
-    redirect_to profile_path(current_user)
-  end
-
-  def update_user_workspaces(workspace)
+  def update_user_workspaces(workspaces, notification)
     render turbo_stream: [
-      turbo_stream.append(:my_workspaces_list,
-                          partial: 'partials/workspaces/list_card',
-                          locals: { workspace: }),
-      turbo_stream.update(:new_workspace_form, '')
+      turbo_stream.update(:my_workspaces_list,
+                          partial: 'partials/workspaces/list',
+                          locals: { workspaces: }),
+      turbo_stream.update(:new_workspace_form, ''),
+      turbo_stream.update(:notifications_bar,
+                          partial: 'partials/bar_notification',
+                          locals: notification)
     ]
   end
 end
