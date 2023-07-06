@@ -1,0 +1,29 @@
+name: RSpec workflow
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '11'
+
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle
+      - name: Setup Database
+        run: |
+          cp config/database.github-actions.yml config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+      - name: Run RSpec
+        run: bundle exec rspec  --require rails_helper
