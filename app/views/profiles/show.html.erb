@@ -30,6 +30,14 @@
 
     <%= turbo_frame_tag "new_workspace_form" %>
 
+    <div id="my_workspaces_list" class="flex flex-col">
+      <% @workspaces.each do |workspace| %>
+        <%= render partial: 'partials/workspaces/list_card', locals: { 
+          workspace:
+        } %>
+      <% end %>
+    </div>
+
   </div>
 
   <div class="flex flex-col gap-2 w-full mb-6">
