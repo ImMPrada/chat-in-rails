@@ -1,4 +1,7 @@
 <div class="flex flex-col w-1/5 h-screen bg-red">
+  <% if can?(@workspace, :create, Channel) %>
+    <%= link_to "create a channel", new_workspace_channel_path(@workspace) %>
+  <% end %>
   THIS IS THE SIDEBAR
 </div>
 <div class="flex flex-col w-4/5 h-screen bg-grey">
