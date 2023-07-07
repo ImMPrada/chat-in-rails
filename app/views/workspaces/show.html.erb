@@ -1,10 +1,84 @@
-<div class="flex flex-col w-1/5 h-screen bg-red">
-  <% if can?(@workspace, :create, Channel) %>
-    <%= link_to "create a channel", new_workspace_channel_path(@workspace) %>
-  <% end %>
-  THIS IS THE SIDEBAR
+<div class="flex flex-col justify-between min-w-[22%] max-h-screen bg-black">
+  <div class="max-h-[80%]">
+    <div class="flex justify-between py-4 pr-5 pl-8 with-shadow">
+      <h2 class="font-bold text-lg text-white tracking-tight">Channels</h2>
+      <% if can?(@workspace, :create, Channel) %>
+        <%= link_to(
+          "+",
+          new_workspace_channel_path(@workspace),
+          class: "block w-6 h-6 bg-black-soft text-white text-center"
+        ) %>
+      <% end %>
+    </div>
+
+    <form class="block flex flex-col gap-1" data-turbo="false" accept-charset="UTF-8">
+      <label
+        class="block flex my-5 mr-5 ml-8 px-2.5 rounded-lg bg-grey hover:cursor-pointer"
+        for="search_channel_name"
+      >
+        <img
+          src=<%= current_user.avatar_url %>
+          class="block w-4 h-4 rounded-lg self-center"
+        >
+
+        <input
+          placeholder="My new channel name"
+          class="font-sans
+                outline-none
+                w-full
+                border-0
+                bg-grey
+                text-grey-soft
+                focus:outline-none
+                focus:ring-0"
+          type="text"
+          name="search_channel[name]"
+          id="search_channel_name">
+
+        <input
+          type="submit"
+          name="commit"
+          value="create"
+          class="hidden block btn rounded"
+          data-disable-with="create">
+      </label>
+    </form>
+
+    <div class="flex flex-col gap-5 py-5 pr-5 pl-8 bg-black max-h-full overflow-y-auto">
+      <% @workspace_channels.each do |channel| %> 
+        <a
+          class="block flex gap-3"
+          href="/workspaces/4"
+        >
+          <img
+            src=<%= channel.avatar_url %>
+            class="block w-11 h-11 rounded-lg self-center"
+          >
+          <span class="block self-center font-bold text-lg text-white tracking-tight">
+            <%= channel.name.upcase %>
+          </span>
+        </a>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark">
+    <div class="flex gap-7">
+      <img
+        src=<%= current_user.avatar_url %>
+        class="block w-11 h-11 rounded-lg self-center"
+      >
+      <h2 class="block font-bold text-lg text-grey-soft tracking-tight self-center">
+        <%= current_user.username %>
+      </h2>
+    </div>
+    <%= link_to(
+          "V",
+          new_workspace_channel_path(@workspace),
+          class: "block text-white text-center self-center"
+        ) %>
+  </div>
 </div>
-<div class="flex flex-col w-4/5 h-screen bg-grey">
+<div class="flex flex-col w-[78%] h-screen bg-grey">
   <div class="flex flex-col w-full h-5/6 bg-green-soft">HERE WILL BE DISPLAYED THE CONVERSATION</div>
   <div class="flex flex-col w-full h-1/6 bg-green">HERE THE TEXT FIELD</div>
 </div>
