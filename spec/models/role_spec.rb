@@ -17,4 +17,46 @@ RSpec.describe Role, type: :model do
       it { is_expected.not_to allow_value('user@role').for(:name) }
     end
   end
+
+  describe '#admin?' do
+    describe 'when role is admin' do
+      let(:role) { build(:role, name: 'admin') }
+
+      it { expect(role.admin?).to be(true) }
+    end
+
+    describe 'when role is not admin' do
+      let(:role) { build(:role, name: 'owner') }
+
+      it { expect(role.admin?).to be(false) }
+    end
+  end
+
+  describe '#owner?' do
+    describe 'when role is owner' do
+      let(:role) { build(:role, name: 'owner') }
+
+      it { expect(role.owner?).to be(true) }
+    end
+
+    describe 'when role is not owner' do
+      let(:role) { build(:role, name: 'admin') }
+
+      it { expect(role.owner?).to be(false) }
+    end
+  end
+
+  describe '#member?' do
+    describe 'when role is member' do
+      let(:role) { build(:role, name: 'member') }
+
+      it { expect(role.member?).to be(true) }
+    end
+
+    describe 'when role is not member' do
+      let(:role) { build(:role, name: 'admin') }
+
+      it { expect(role.member?).to be(false) }
+    end
+  end
 end

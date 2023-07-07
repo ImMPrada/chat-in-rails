@@ -6,4 +6,16 @@ class Role < ApplicationRecord
               with: /\A[a-z]*\z/,
               message: 'only allows a-z letterss'
             }
+
+  def admin?
+    name == 'admin'
+  end
+
+  def owner?
+    name == 'owner'
+  end
+
+  def member?
+    name == 'member'
+  end
 end
