@@ -1,9 +1,9 @@
-<h2 class="text-white"> add a new channel to <%= @workspace.name %> </h2>
+<h2 class="text-white block"> add a new channel to <%= @workspace.name %> </h2>
 <%=  turbo_frame_tag "new_channel_form" do %>
   <%=
     form_with(
       model: @channel,
-      url: workspace_channels_path([@workspace, @channel]),
+      url: workspace_channels_path(@workspace, @channel),
       class: "flex flex-col gap-1",
       data: { turbo: false }
     ) do |form| 
@@ -16,29 +16,20 @@
         extra_classes: "rounded-none",
       } %>
 
-      <% @workspace_members.each do |member| %>
-        <% next if member == current_user %>
-        <div class="flex gap-2">
-          <label
-            class="block w-full py-4 px-6 border text-white"
-            for=<%="members_ids_selected_#{member.id}"%>
-          >
-            <%= member.username %>
-            <%= check_box(
-              :members_ids,
-              "selected",
-              { multiple: true },
-              member.id,
-              nil
-            ) %>
-          </label>
-        </div>
+      <% if @workspace_members %>
+        <%= render partial: 'partials/form_fields/list_of_selectable_members', locals: {
+          resource: :channel,
+          members: @workspace_members,
+          field: :members_ids_selected
+        } %>
+      <% else %>
+        <span class="block text-white text-base font-sans"> no members to add to this channel </span>
       <% end %>
 
       <div class="flex justify-between gap-1">
         <%= form.submit(
           "create",
-          class: "block btn rounded-l"
+          class: "block btn rounded"
         ) %>
         <%= link_to(
           "cancel",

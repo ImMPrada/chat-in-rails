@@ -1,0 +1,3 @@
+.hidden-option-for-card:checked + label {
+	border-color: #3081ED;
+}
