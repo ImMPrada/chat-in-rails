@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_create :add_avatar_url
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,6 +18,27 @@ class User < ApplicationRecord
   has_many :workspaces, through: :workspace_users
   has_many :roles, through: :workspace_users
   has_many :channel_users, dependent: :destroy
+
+  def admin?(workspace)
+    workspace_user = WorkspaceUser.find_by(user: self, workspace:)
+    return false unless workspace_user
+
+    workspace_user.role.admin?
+  end
+
+  def owner?(workspace)
+    workspace_user = WorkspaceUser.find_by(user: self, workspace:)
+    return false unless workspace_user
+
+    workspace_user.role.owner?
+  end
+
+  def member?(workspace)
+    workspace_user = WorkspaceUser.find_by(user: self, workspace:)
+    return false unless workspace_user
+
+    workspace_user.role.member?
+  end
 
   private
 
