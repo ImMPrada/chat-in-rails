@@ -1,0 +1,11 @@
+<div id="workspace_channel_sidebar" class="flex flex-col justify-between w-[22%] max-h-screen bg-black">
+  <%= render(
+    partial: 'partials/workspace_channel/members_list',
+    locals: {
+      channel: @channel,
+      workspace: @workspace,
+      user: current_user,
+      channel_members: @channel_members
+    }
+  ) %>
+</div>

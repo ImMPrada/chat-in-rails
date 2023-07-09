@@ -1,42 +1,67 @@
 <h2 class="text-white block"> add a new channel to <%= @workspace.name %> </h2>
-<%=  turbo_frame_tag "new_channel_form" do %>
-  <%=
-    form_with(
-      model: @channel,
-      url: workspace_channels_path(@workspace, @channel),
-      class: "flex flex-col gap-1",
-      data: { turbo: false }
-    ) do |form| 
-  %>
-      <%= render partial: 'partials/form_fields/text_field', locals: { 
-        form: form,
-        model_field: :name,
-        resource: @workspace,
-        placeholder: "My new channel name",
-        extra_classes: "rounded-none",
-      } %>
-
-      <% if @workspace_members %>
-        <%= render partial: 'partials/form_fields/list_of_selectable_members', locals: {
-          resource: :channel,
-          members: @workspace_members,
-          field: :members_ids_selected
-        } %>
-      <% else %>
-        <span class="block text-white text-base font-sans"> no members to add to this channel </span>
-      <% end %>
-
-      <div class="flex justify-between gap-1">
-        <%= form.submit(
-          "create",
-          class: "block btn rounded"
-        ) %>
-        <%= link_to(
-          "cancel",
-          workspace_path(@workspace),
-          class: "block btn",
+<%=  turbo_frame_tag(
+    "modal",
+    class: ""
+  ) do %>
+  <div class="container
+              absolute
+              top-0
+              left-0
+              z-50
+              bg-black-dark
+              bg-opacity-75
+              min-h-screen
+              min-w-full
+              flex
+              flex-col
+              justify-center
+              items-center
+              p-4"
+  >
+    <div class="w-full md:w-[600px] max-h-4/5 md:max-h-[330px] p-2 md:p-8 bg-black-dark">
+      <%=
+        form_with(
+          model: @channel,
+          url: workspace_channels_path(@workspace, @channel),
+          class: "block
+                  max-w-full
+                  max-h-1/5 
+                  flex
+                  flex-col
+                  gap-1
+                  bg-black",
           data: { turbo: false }
-        ) %>
-      </div>
-  <% end %>
+        ) do |form| 
+      %>
+          <%= render partial: 'partials/form_fields/text_field', locals: { 
+            form: form,
+            model_field: :name,
+            resource: @workspace,
+            placeholder: "My new channel name",
+            extra_classes: "rounded-none",
+          } %>
+
+          <%= render partial: 'partials/form_fields/text_area', locals: { 
+            form: form,
+            model_field: :description,
+            resource: @workspace,
+            placeholder: "My new channel description",
+            extra_classes: "rounded-none",
+          } %>
+
+          <div class="flex justify-between">
+            <%= form.submit(
+              "create",
+              class: "block btn rounded"
+            ) %>
+            <%= link_to(
+              "cancel",
+              workspace_path(@workspace),
+              class: "block btn",
+              data: { turbo: false }
+            ) %>
+          </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>
