@@ -8,7 +8,7 @@ module Render
   included do
     attr_accessor :visible_to
 
-    def add_channels_list_tu_stream
+    def add_channels_list_to_stream
       turbo_stream.update(
         :workspace_channel_sidebar,
         partial: 'partials/workspace_channel/channels_list',
@@ -17,6 +17,46 @@ module Render
           user: current_user,
           workspace_channels:
         }
+      )
+    end
+
+    def update_workspaces_list(workspaces)
+      turbo_stream.update(
+        :my_workspaces_list,
+        partial: 'partials/workspaces/list',
+        locals: { workspaces: }
+      )
+    end
+
+    def remove_new_workspace_form
+      turbo_stream.update(:new_workspace_form, '')
+    end
+
+    def notice_message(message)
+      notify_message(
+        {
+          classes: 'notice',
+          message:
+        }
+      )
+    end
+
+    def alert_message(message)
+      notify_message(
+        {
+          classes: 'alert',
+          message:
+        }
+      )
+    end
+
+    private
+
+    def notify_message(notification)
+      turbo_stream.update(
+        :notifications_bar,
+        partial: 'partials/bar_notification',
+        locals: notification
       )
     end
   end

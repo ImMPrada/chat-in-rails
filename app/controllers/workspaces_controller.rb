@@ -1,11 +1,12 @@
 class WorkspacesController < ApplicationController
   before_action :authenticate_user!
 
-  layout 'workspace', only: %i[show]
+  include Render
 
   def show
-    @workspace = Workspace.find(params[:id])
-    @members = @workspace.users
+    workspace = Workspace.find(params[:id])
+    channel = workspace.channels.first
+    redirect_to workspace_channel_path(workspace, channel)
   end
 
   def new
@@ -23,22 +24,15 @@ class WorkspacesController < ApplicationController
 
   private
 
-  attr_reader :workspace_creator
+  attr_reader :workspace_creator, :workspace
 
   def workspace_params
     params.require(:workspace).permit(:name)
   end
 
   def return_by_error(message: nil)
-    locals = {
-      classes: 'alert',
-      message: message || workspace_creator.errors.full_messages.join(', ')
-    }
-
     render turbo_stream: [
-      turbo_stream.update(:notifications_bar,
-                          partial: 'partials/bar_notification',
-                          locals:)
+      alert_message(message || workspace_creator.errors.full_messages.join(', ')),
     ]
   end
 
@@ -47,22 +41,15 @@ class WorkspacesController < ApplicationController
 
     update_user_workspaces(
       current_user.workspaces,
-      {
-        classes: 'notice',
-        message: "#{workspace_creator.name} created successfully"
-      }
+      "#{workspace_creator.name} created successfully"
     )
   end
 
-  def update_user_workspaces(workspaces, notification)
+  def update_user_workspaces(workspaces, message)
     render turbo_stream: [
-      turbo_stream.update(:my_workspaces_list,
-                          partial: 'partials/workspaces/list',
-                          locals: { workspaces: }),
-      turbo_stream.update(:new_workspace_form, ''),
-      turbo_stream.update(:notifications_bar,
-                          partial: 'partials/bar_notification',
-                          locals: notification)
+      update_workspaces_list(workspaces),
+      remove_new_workspace_form,
+      notice_message(message)
     ]
   end
 end

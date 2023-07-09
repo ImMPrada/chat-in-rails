@@ -14,7 +14,7 @@ module.exports = {
       },
     },
     colors: {
-      'black-dadrk': '#0B090B',
+      'black-dark': '#0B090B',
       'black': '#120F14',
       'black-soft': '#252329',
       'grey': '#3C393F',
@@ -25,29 +25,6 @@ module.exports = {
       'red': '#BE113C',
       'green-soft': '#BBF7D0',
       'green': '#18A34A'
-    },
-    fontSize: {
-      'l': [
-        '1.5rem',
-        {
-          lineHeight: '1.4',
-          letter: '-3.4px'
-        },
-      ],
-      'base': [
-        '1rem',
-        {
-          lineHeight: '1.4',
-          letter: '-3.4px'
-        },
-      ],
-      'sm': [
-        '0.875rem',
-        {
-          lineHeight: '1.4',
-          letter: '-3.4px'
-        },
-      ],
     },
   },
   plugins: [

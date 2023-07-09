@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   resources :workspaces, only: %i[show new create] do
-    resources :channels, only: %i[new create]
+    resources :channels, only: %i[index show new create]
   end
 end

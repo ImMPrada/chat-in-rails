@@ -34,4 +34,7 @@
       focus:ring-0
       focus:border-grey-soft;
   }
+  .border-red-test {
+    @apply border-solid border-red border-2;
+  }
 }
