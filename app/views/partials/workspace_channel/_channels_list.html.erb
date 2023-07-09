@@ -1,0 +1,79 @@
+<%# locals: {
+  workspace: @workspace,
+  user: current_user,
+  workspace_channels: @workspace_channels
+} %>
+
+<div class="max-h-[80%]">
+  <div class="flex justify-between py-4 pr-5 pl-8 with-shadow">
+    <h2 class="text-noto-18-700 text-white">Channels</h2>
+    <% if can?(workspace, :create, Channel) %>
+      <%= link_to(
+        "+",
+        new_workspace_channel_path(workspace),
+        data: {
+          turbo_frame: "modal",
+          turbo_frame_loading: "eager"
+        },
+        class: "block w-6 h-6 bg-black-soft text-white text-center"
+      ) %>
+    <% end %>
+  </div>
+
+  <form class="block flex flex-col gap-1" data-turbo="false" accept-charset="UTF-8">
+    <label
+      class="block flex my-5 mr-5 ml-8 py-3 px-2.5 rounded-lg bg-grey hover:cursor-pointer"
+      for="search_channel_name"
+    >
+      <img
+        src=<%= user.avatar_url %>
+        class="block w-4 h-4 rounded-lg self-center"
+      >
+
+      <input
+        placeholder="My new channel name"
+        class="text-noto-14-500
+              outline-none
+              w-full
+              border-0
+              bg-grey
+              text-grey-soft
+              focus:outline-none
+              focus:ring-0"
+        type="text"
+        name="search_channel[name]"
+        id="search_channel_name">
+
+      <input
+        type="submit"
+        name="commit"
+        value="create"
+        class="hidden block btn rounded"
+        data-disable-with="create">
+    </label>
+  </form>
+
+  <div class="flex flex-col gap-5 py-5 pr-5 pl-8 bg-black max-h-full overflow-y-auto">
+    <% workspace_channels.each do |channel| %> 
+      <a
+        class="block flex gap-3"
+        href=<%= workspace_channel_path(workspace, channel) %>
+      >
+        <img
+          src=<%= channel.avatar_url %>
+          class="block w-11 h-11 rounded-lg self-center"
+        >
+        <span class="block self-center text-noto-18-700 text-white">
+          <%= channel.name.upcase %>
+        </span>
+      </a>
+    <% end %>
+  </div>
+</div>
+
+<%= render(
+  partial: 'partials/workspace_channel/current_user_bar',
+  locals: {
+    user:,
+  }
+) %>
