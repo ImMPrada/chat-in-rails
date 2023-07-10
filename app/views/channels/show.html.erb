@@ -1,4 +1,4 @@
-<div id="workspace_channel_sidebar" class="flex flex-col justify-between w-[22%] max-h-screen bg-black">
+<div id="workspace_channel_sidebar" class="w-[22%] h-full grid grid-rows-[auto,1fr,75px]">
   <%= render(
     partial: 'partials/workspace_channel/members_list',
     locals: {
@@ -8,4 +8,9 @@
       channel_members: @channel_members
     }
   ) %>
+</div>
+
+<div id="workspace_channel_sidebar" class="w-[78%] h-full grid grid-rows-[4fr,1fr]">
+  <div class="w-full row-start-1 bg-green">HERE WILL BE DISPLAYED THE CONVERSATION</div>
+  <div class="w-full row-start-2 bg-red">HERE THE TEXT FIELD</div>
 </div>

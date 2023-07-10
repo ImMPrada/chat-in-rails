@@ -11,15 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-black-soft minw-screen min-h-screen">
+  <body class="bg-black">
+    <div id="notifications_bar" class="block min-w-full text-center absolute">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
     <div class="container min-w-full h-screen flex bg-black-soft">
       <%= yield %>
-      <div class="flex flex-col w-[78%] h-screen bg-grey">
-        <div class="flex flex-col w-full h-5/6 bg-green-soft">HERE WILL BE DISPLAYED THE CONVERSATION</div>
-        <div class="flex flex-col w-full h-1/6 bg-green">HERE THE TEXT FIELD</div>
-      </div>
     </div>
     <%= turbo_frame_tag "modal" %>
   </body>
-  <script src="https://kit.fontawesome.com/cf27454bb4.js" crossorigin="anonymous"></script>
 </html>

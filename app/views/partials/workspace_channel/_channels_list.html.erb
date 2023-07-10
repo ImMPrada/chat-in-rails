@@ -4,9 +4,24 @@
   workspace_channels: @workspace_channels
 } %>
 
-<div class="max-h-[80%]">
-  <div class="flex justify-between py-4 pr-5 pl-8 with-shadow">
+<div class="flex
+            flex-col
+            with-shadow
+            w-full
+            bg-black"
+>
+  <div class="flex
+              justify-between
+              gap-4
+              py-4
+              pr-5
+              pl-8
+              with-shadow
+              w-full
+              h-[60px]"
+  >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
+
     <% if can?(workspace, :create, Channel) %>
       <%= link_to(
         "+",
@@ -20,9 +35,9 @@
     <% end %>
   </div>
 
-  <form class="block flex flex-col gap-1" data-turbo="false" accept-charset="UTF-8">
+  <form class="block flex flex-col pt-5 pr-5 pl-8 mb-8" data-turbo="false" accept-charset="UTF-8">
     <label
-      class="block flex my-5 mr-5 ml-8 py-3 px-2.5 rounded-lg bg-grey hover:cursor-pointer"
+      class="block flex py-3 px-2.5 rounded-lg bg-grey hover:cursor-pointer"
       for="search_channel_name"
     >
       <img
@@ -53,27 +68,40 @@
     </label>
   </form>
 
-  <div class="flex flex-col gap-5 py-5 pr-5 pl-8 bg-black max-h-full overflow-y-auto">
-    <% workspace_channels.each do |channel| %> 
-      <a
-        class="block flex gap-3"
-        href=<%= workspace_channel_path(workspace, channel) %>
-      >
-        <img
-          src=<%= channel.avatar_url %>
-          class="block w-11 h-11 rounded-lg self-center"
-        >
-        <span class="block self-center text-noto-18-700 text-white">
-          <%= channel.name.upcase %>
-        </span>
-      </a>
-    <% end %>
-  </div>
 </div>
 
-<%= render(
-  partial: 'partials/workspace_channel/current_user_bar',
-  locals: {
-    user:,
-  }
-) %>
+<div class="w-full
+            flex
+            flex-col
+            gap-5
+            pb-6
+            pr-5
+            pl-8
+            bg-black
+            overflow-y-auto"
+>
+  <% workspace_channels.each do |channel| %> 
+    <a
+      class="block flex gap-3"
+      href=<%= workspace_channel_path(workspace, channel) %>
+    >
+      <img
+        src=<%= channel.avatar_url %>
+        class="block w-11 h-11 rounded-lg self-center"
+      >
+      <span class="block self-center text-noto-18-700 text-white">
+        <%= channel.name.upcase %>
+      </span>
+    </a>
+  <% end %>
+</div>
+
+<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full">
+  <%= render(
+    partial: 'partials/workspace_channel/current_user_bar',
+    locals: {
+      user:,
+    }
+  ) %>
+</div>
+
