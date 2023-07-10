@@ -1,8 +1,6 @@
 class Channel < ApplicationRecord
   before_create :add_avatar_url
 
-  attr_accessor :members_ids_selected
-
   validates :name,
             presence: true,
             format: {

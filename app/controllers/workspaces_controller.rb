@@ -1,8 +1,6 @@
 class WorkspacesController < ApplicationController
   before_action :authenticate_user!
 
-  include Render
-
   def show
     workspace = Workspace.find(params[:id])
     channel = workspace.channels.first
@@ -32,7 +30,12 @@ class WorkspacesController < ApplicationController
 
   def return_by_error(message: nil)
     render turbo_stream: [
-      alert_message(message || workspace_creator.errors.full_messages.join(', ')),
+      notify_message(
+        {
+          classes: 'alert',
+          message: message || workspace_creator.errors.full_messages.join(', ')
+        }
+      )
     ]
   end
 
@@ -48,8 +51,29 @@ class WorkspacesController < ApplicationController
   def update_user_workspaces(workspaces, message)
     render turbo_stream: [
       update_workspaces_list(workspaces),
-      remove_new_workspace_form,
-      notice_message(message)
+      turbo_stream.update(:new_workspace_form, ''),
+      notify_message(
+        {
+          classes: 'notice',
+          message:
+        }
+      )
     ]
+  end
+
+  def notify_message(notification)
+    turbo_stream.update(
+      :notifications_bar,
+      partial: 'partials/bar_notification',
+      locals: notification
+    )
+  end
+
+  def update_workspaces_list(workspaces)
+    turbo_stream.update(
+      :my_workspaces_list,
+      partial: 'partials/workspaces/list',
+      locals: { workspaces: }
+    )
   end
 end

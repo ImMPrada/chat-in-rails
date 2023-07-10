@@ -2,11 +2,11 @@ module Channels
   class Creator
     attr_reader :errors_messages
 
-    def initialize(params, user, workspace, users_ids)
+    def initialize(params, user, workspace, user_id)
       @params = params
       @user = user
       @workspace = workspace
-      @users_ids = users_ids
+      @user_id = user_id
       @errors_messages = []
     end
 
@@ -15,10 +15,10 @@ module Channels
       channel.workspace = workspace
 
       check_channel
-      add_users_to_channel
+      add_user_to_channel
 
       channel.save!
-      chanel_users.each(&:save!)
+      channel_user.save!
       channel
     rescue StandardError => e
       errors_messages << e.message
@@ -27,7 +27,7 @@ module Channels
 
     private
 
-    attr_reader :params, :user, :workspace, :users_ids, :channel, :chanel_users
+    attr_reader :params, :user, :workspace, :user_id, :channel, :channel_user
 
     def check_channel
       return if channel.valid?
@@ -36,14 +36,9 @@ module Channels
       raise StandardError, message
     end
 
-    def add_users_to_channel
-      @chanel_users = users_ids.map do |user_id|
-        check_chanel_user(ChannelUser.new(user_id:, channel:))
-      end
-    end
-
-    def check_chanel_user(channel_user)
-      return channel_user if channel_user.valid?
+    def add_user_to_channel
+      @channel_user = ChannelUser.new(user_id:, channel:)
+      return if channel_user.valid?
 
       message = channel_user.errors.full_messages.join(', ')
       raise StandardError, message

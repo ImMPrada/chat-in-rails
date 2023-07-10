@@ -3,8 +3,6 @@ class ChannelsController < ApplicationController
 
   layout 'workspace_channel'
 
-  include Render
-
   def show
     workspace_channels
     @members = workspace.users
@@ -13,7 +11,13 @@ class ChannelsController < ApplicationController
 
   def index
     render turbo_stream: [
-      add_channels_list_to_stream
+      turbo_stream.update(:workspace_channel_sidebar,
+                          partial: 'partials/workspace_channel/channels_list',
+                          locals: {
+                            workspace:,
+                            user: current_user,
+                            workspace_channels:
+                          })
     ]
   end
 
@@ -26,11 +30,11 @@ class ChannelsController < ApplicationController
     channel_creator = Channels::Creator.new(channel_params,
                                             current_user,
                                             workspace,
-                                            [current_user.id])
+                                            current_user.id)
     channel = channel_creator.commit
-    return redirect_to workspace_channel_path(workspace, channel) if channel
+    return succeed_channel_creation if channel
 
-    redirect_to workspace_path(workspace)
+    failed_channel_creation(channel_creator.errors_messages.join(', '))
   end
 
   private
@@ -49,5 +53,15 @@ class ChannelsController < ApplicationController
 
   def workspace_channels
     @workspace_channels ||= workspace.channels
+  end
+
+  def failed_channel_creation(message)
+    flash[:alert] = message
+    redirect_to workspace_path(workspace)
+  end
+
+  def succeed_channel_creation
+    flash[:notice] = 'Channel created successfully'
+    redirect_to workspace_channel_path(workspace, channel)
   end
 end
