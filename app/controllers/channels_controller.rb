@@ -32,7 +32,7 @@ class ChannelsController < ApplicationController
                                             workspace,
                                             current_user.id)
     channel = channel_creator.commit
-    return succeed_channel_creation if channel
+    return succeed_channel_creation(channel) if channel
 
     failed_channel_creation(channel_creator.errors_messages.join(', '))
   end
@@ -60,7 +60,7 @@ class ChannelsController < ApplicationController
     redirect_to workspace_path(workspace)
   end
 
-  def succeed_channel_creation
+  def succeed_channel_creation(channel)
     flash[:notice] = 'Channel created successfully'
     redirect_to workspace_channel_path(workspace, channel)
   end

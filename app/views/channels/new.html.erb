@@ -9,7 +9,7 @@
               top-0
               left-0
               z-50
-              bg-black-dark
+              bg-grey
               bg-opacity-75
               min-h-screen
               min-w-full
@@ -19,7 +19,7 @@
               items-center
               p-4"
   >
-    <div class="w-full md:w-[600px] max-h-4/5 md:max-h-[330px] p-2 md:p-8 bg-black-dark">
+    <div class="w-full md:w-[600px] p-2 md:p-8 bg-black rounded-3xl">
       <%=
         form_with(
           model: @channel,
@@ -29,30 +29,29 @@
                   max-h-1/5 
                   flex
                   flex-col
-                  gap-1
-                  bg-black",
+                  gap-8",
           data: { turbo: false }
         ) do |form| 
       %>
-          <%= render partial: 'partials/form_fields/text_field', locals: { 
-            form: form,
-            model_field: :name,
-            resource: @workspace,
-            placeholder: "My new channel name",
-            extra_classes: "rounded-none",
-          } %>
 
-          <%= render partial: 'partials/form_fields/text_area', locals: { 
-            form: form,
-            model_field: :description,
-            resource: @workspace,
-            placeholder: "My new channel description",
-            extra_classes: "rounded-none",
-          } %>
+          <h3 class="text-white text-noto-18-700">NEW CHANNEL</h3>
+
+          <%= form.text_field(
+            :name,
+            placeholder: "Channel name",
+            class: "field-input
+                    text-noto-18-500"
+          ) %>
+
+          <%= form.text_area(
+            :description,
+            placeholder: "Channel Description",
+            class: "field-input text-noto-18-500"
+          ) %>
 
           <div class="flex justify-between">
             <%= form.submit(
-              "create",
+              "save",
               class: "block btn rounded"
             ) %>
             <%= link_to(
