@@ -1,0 +1,18 @@
+<%# locals: {
+  user: current_user,
+} %>
+
+<div class="flex gap-7">
+  <img
+    src=<%= user.avatar_url %>
+    class="block w-11 h-11 rounded-lg self-center"
+  >
+  <h2 class="block text-grey-soft text-noto-18-700 self-center">
+    <%= user.username %>
+  </h2>
+</div>
+<%= link_to(
+  "V",
+  nil,
+  class: "block text-white text-center self-center"
+) %>

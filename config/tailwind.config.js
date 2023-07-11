@@ -12,6 +12,22 @@ module.exports = {
       fontFamily: {
         sans: ['Noto Sans', 'sans-serif'],
       },
+      fontSize: {
+        sm: '0.875rem',
+        base: '1rem',    // Equivalent to 16px (default base font size)
+        lg: '1.125rem',
+      },
+      fontWeight: {
+        normal: 400,
+        medium: 500,
+        bold: 700,
+      },
+      lineHeight: {
+        normal: '1.4',
+      },
+      letterSpacing: {
+        tighter: '-0.035em',
+      },
     },
     colors: {
       'black-dark': '#0B090B',

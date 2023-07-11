@@ -28,7 +28,80 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:workspace_users).dependent(:destroy) }
+    it { is_expected.to have_many(:workspace_channel_users).dependent(:destroy) }
     it { is_expected.to have_many(:workspaces).through(:workspace_users) }
     it { is_expected.to have_many(:roles).through(:workspace_users) }
+  end
+
+  describe '#owner?' do
+    let(:workspace) { create(:workspace) }
+    let(:other_workspace) { create(:workspace) }
+    let(:other_user) { create(:user) }
+
+    before do
+      role = create(:role, name: 'owner')
+      create(:workspace_user, user:, workspace:, role:)
+      create(:workspace_user, user: other_user, workspace: other_workspace, role:)
+    end
+
+    describe 'when user is not owner' do
+      it 'returns false' do
+        expect(user.owner?(other_workspace)).to be(false)
+      end
+    end
+
+    describe 'when user is owner' do
+      it 'returns true' do
+        expect(user.owner?(workspace)).to be(true)
+      end
+    end
+  end
+
+  describe '#admin?' do
+    let(:workspace) { create(:workspace) }
+    let(:other_workspace) { create(:workspace) }
+    let(:other_user) { create(:user) }
+
+    before do
+      role = create(:role, name: 'admin')
+      create(:workspace_user, user:, workspace:, role:)
+      create(:workspace_user, user: other_user, workspace: other_workspace, role:)
+    end
+
+    describe 'when user is not admin' do
+      it 'returns false' do
+        expect(user.admin?(other_workspace)).to be(false)
+      end
+    end
+
+    describe 'when user is admin' do
+      it 'returns true' do
+        expect(user.admin?(workspace)).to be(true)
+      end
+    end
+  end
+
+  describe '#member?' do
+    let(:workspace) { create(:workspace) }
+    let(:other_workspace) { create(:workspace) }
+    let(:other_user) { create(:user) }
+
+    before do
+      role = create(:role, name: 'member')
+      create(:workspace_user, user:, workspace:, role:)
+      create(:workspace_user, user: other_user, workspace: other_workspace, role:)
+    end
+
+    describe 'when user is not member' do
+      it 'returns false' do
+        expect(user.member?(other_workspace)).to be(false)
+      end
+    end
+
+    describe 'when user is member' do
+      it 'returns true' do
+        expect(user.member?(workspace)).to be(true)
+      end
+    end
   end
 end

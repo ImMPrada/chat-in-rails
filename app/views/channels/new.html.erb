@@ -1,0 +1,66 @@
+<h2 class="text-white block"> add a new channel to <%= @workspace.name %> </h2>
+<%=  turbo_frame_tag(
+    "modal",
+    class: ""
+  ) do %>
+  <div class="container
+              absolute
+              top-0
+              left-0
+              z-50
+              bg-grey
+              bg-opacity-75
+              min-h-screen
+              min-w-full
+              flex
+              flex-col
+              justify-center
+              items-center
+              p-4"
+  >
+    <div class="w-full md:w-[600px] p-2 md:p-8 bg-black rounded-3xl">
+      <%=
+        form_with(
+          model: @workspace_channel,
+          url: workspace_channels_path(@workspace, @workspace_channel),
+          class: "block
+                  max-w-full
+                  max-h-1/5 
+                  flex
+                  flex-col
+                  gap-8",
+          data: { turbo: false }
+        ) do |form| 
+      %>
+
+          <h3 class="text-white text-noto-18-700">NEW CHANNEL</h3>
+
+          <%= form.text_field(
+            :name,
+            placeholder: "Channel name",
+            class: "field-input
+                    text-noto-18-500"
+          ) %>
+
+          <%= form.text_area(
+            :description,
+            placeholder: "Channel Description",
+            class: "field-input text-noto-18-500"
+          ) %>
+
+          <div class="flex justify-between">
+            <%= form.submit(
+              "save",
+              class: "block btn rounded"
+            ) %>
+            <%= link_to(
+              "cancel",
+              workspace_path(@workspace),
+              class: "block btn",
+              data: { turbo: false }
+            ) %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

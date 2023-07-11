@@ -1,17 +1,17 @@
-class Workspace < ApplicationRecord
+class WorkspaceChannel < ApplicationRecord
   before_create :add_avatar_url
 
   validates :name,
             presence: true,
-            uniqueness: { case_sensitive: false },
             format: {
               with: /\A[a-zA-Z0-9_\-\s]*\z/,
-              message: 'only allows letters, numbers'
+              message: 'only allows letters, numbers, spaces, underscores, and dashes'
             }
 
-  has_many :workspace_users, dependent: :destroy
-  has_many :users, through: :workspace_users
-  has_many :workspace_channels, dependent: :destroy
+  belongs_to :workspace
+
+  has_many :workspace_channel_users, dependent: :destroy
+  has_many :users, through: :workspace_channel_users
 
   private
 

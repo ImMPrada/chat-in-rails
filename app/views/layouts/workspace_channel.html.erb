@@ -11,10 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-black-soft">
-    <div id="notifications_bar" class="block min-w-full text-center absolute"></div>
-    <main class="container min-w-full min-h-screen flex bg-black-soft">
+  <body class="bg-black">
+    <div id="notifications_bar" class="block min-w-full text-center absolute">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+    <div class="container min-w-full h-screen flex bg-black-soft">
       <%= yield %>
-    </main>
+    </div>
+    <%= turbo_frame_tag "modal" %>
   </body>
 </html>
