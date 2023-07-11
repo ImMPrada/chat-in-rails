@@ -22,7 +22,7 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <% if can?(workspace, :create, Channel) %>
+    <% if can?(workspace, :create, WorkspaceChannel) %>
       <%= link_to(
         "+",
         new_workspace_channel_path(workspace),
@@ -80,17 +80,17 @@
             bg-black
             overflow-y-auto"
 >
-  <% workspace_channels.each do |channel| %> 
+  <% workspace_channels.each do |workspace_channel| %> 
     <a
       class="block flex gap-3"
-      href=<%= workspace_channel_path(workspace, channel) %>
+      href=<%= workspace_channel_path(workspace, workspace_channel) %>
     >
       <img
-        src=<%= channel.avatar_url %>
+        src=<%= workspace_channel.avatar_url %>
         class="block w-11 h-11 rounded-lg self-center"
       >
       <span class="block self-center text-noto-18-700 text-white">
-        <%= channel.name.upcase %>
+        <%= workspace_channel.name.upcase %>
       </span>
     </a>
   <% end %>

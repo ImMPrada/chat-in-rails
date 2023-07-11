@@ -34,6 +34,6 @@ class Ability
     can :read, Workspace
     return unless user.admin?(workspace) || user.owner?(workspace)
 
-    can :create, Channel
+    can :create, WorkspaceChannel
   end
 end

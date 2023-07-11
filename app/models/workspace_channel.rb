@@ -1,4 +1,4 @@
-class Channel < ApplicationRecord
+class WorkspaceChannel < ApplicationRecord
   before_create :add_avatar_url
 
   validates :name,
@@ -10,8 +10,8 @@ class Channel < ApplicationRecord
 
   belongs_to :workspace
 
-  has_many :channel_users, dependent: :destroy
-  has_many :users, through: :channel_users
+  has_many :workspace_channel_users, dependent: :destroy
+  has_many :users, through: :workspace_channel_users
 
   private
 

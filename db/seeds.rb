@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Channel.destroy_all
+WorkspaceChannel.destroy_all
 Workspace.destroy_all
 Role.destroy_all
 User.destroy_all
@@ -26,19 +26,19 @@ admin_user = User.create(email: 'mapra99+test@gmail.com',
                          username: 'mapra.1999')
 
 workspace = Workspace.create(name: 'BrodGden')
-general_channel = Channel.create(name: 'general', workspace:)
+general_channel = WorkspaceChannel.create(name: 'general', workspace:)
 
 WorkspaceUser.create(user: owner_user,
                      workspace:,
                      role: owner_role)
 
-ChannelUser.create(user: owner_user, channel: general_channel)
+WorkspaceChannelUser.create(user: owner_user, workspace_channel: general_channel)
 
 WorkspaceUser.create(user: admin_user,
                      workspace:,
                      role: admin_role)
 
-ChannelUser.create(user: admin_user, channel: general_channel)
+WorkspaceChannelUser.create(user: admin_user, workspace_channel: general_channel)
 
 10.times do
   member_user = User.create(email: Faker::Internet.email,
@@ -48,5 +48,5 @@ ChannelUser.create(user: admin_user, channel: general_channel)
   WorkspaceUser.create(user: member_user,
                        workspace:,
                        role: member_role)
-  ChannelUser.create(user: member_user, channel: general_channel)
+  WorkspaceChannelUser.create(user: member_user, workspace_channel: general_channel)
 end

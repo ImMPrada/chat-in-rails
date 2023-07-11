@@ -11,15 +11,15 @@ module Channels
     end
 
     def commit
-      @channel = Channel.new(params)
-      channel.workspace = workspace
+      @workspace_channel = WorkspaceChannel.new(params)
+      workspace_channel.workspace = workspace
 
       check_channel
       add_user_to_channel
 
-      channel.save!
-      channel_user.save!
-      channel
+      workspace_channel.save!
+      workspace_channel_user.save!
+      workspace_channel
     rescue StandardError => e
       errors_messages << e.message
       false
@@ -27,20 +27,20 @@ module Channels
 
     private
 
-    attr_reader :params, :user, :workspace, :user_id, :channel, :channel_user
+    attr_reader :params, :user, :workspace, :user_id, :workspace_channel, :workspace_channel_user
 
     def check_channel
-      return if channel.valid?
+      return if workspace_channel.valid?
 
-      message = channel.errors.full_messages.join(', ')
+      message = workspace_channel.errors.full_messages.join(', ')
       raise StandardError, message
     end
 
     def add_user_to_channel
-      @channel_user = ChannelUser.new(user_id:, channel:)
-      return if channel_user.valid?
+      @workspace_channel_user = WorkspaceChannelUser.new(user_id:, workspace_channel:)
+      return if workspace_channel_user.valid?
 
-      message = channel_user.errors.full_messages.join(', ')
+      message = workspace_channel_user.errors.full_messages.join(', ')
       raise StandardError, message
     end
   end

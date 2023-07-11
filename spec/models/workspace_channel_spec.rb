@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Channel, type: :model do
-  subject(:channel) { build(:channel) }
+RSpec.describe WorkspaceChannel, type: :model do
+  subject(:workspace_channel) { build(:workspace_channel) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
@@ -15,8 +15,8 @@ RSpec.describe Channel, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:channel_users).dependent(:destroy) }
-    it { is_expected.to have_many(:users).through(:channel_users) }
+    it { is_expected.to have_many(:workspace_channel_users).dependent(:destroy) }
+    it { is_expected.to have_many(:users).through(:workspace_channel_users) }
     it { is_expected.to belong_to(:workspace) }
   end
 end

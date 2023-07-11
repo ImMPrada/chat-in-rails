@@ -6,7 +6,7 @@ class ChannelsController < ApplicationController
   def show
     workspace_channels
     @members = workspace.users
-    @channel_members = channel.users
+    @channel_members = workspace_channel.users
   end
 
   def index
@@ -23,7 +23,7 @@ class ChannelsController < ApplicationController
 
   def new
     @workspace_members = workspace.users
-    @channel = Channel.new
+    @workspace_channel = WorkspaceChannel.new
   end
 
   def create
@@ -31,8 +31,8 @@ class ChannelsController < ApplicationController
                                             current_user,
                                             workspace,
                                             current_user.id)
-    channel = channel_creator.commit
-    return succeed_channel_creation(channel) if channel
+    workspace_channel = channel_creator.commit
+    return succeed_channel_creation(workspace_channel) if workspace_channel
 
     failed_channel_creation(channel_creator.errors_messages.join(', '))
   end
@@ -40,19 +40,19 @@ class ChannelsController < ApplicationController
   private
 
   def channel_params
-    params.require(:channel).permit(:name, :description)
+    params.require(:workspace_channel).permit(:name, :description)
   end
 
   def workspace
     @workspace ||= Workspace.find(params[:workspace_id])
   end
 
-  def channel
-    @channel ||= Channel.find(params[:id])
+  def workspace_channel
+    @workspace_channel ||= WorkspaceChannel.find(params[:id])
   end
 
   def workspace_channels
-    @workspace_channels ||= workspace.channels
+    @workspace_channels ||= workspace.workspace_channels
   end
 
   def failed_channel_creation(message)
@@ -60,8 +60,8 @@ class ChannelsController < ApplicationController
     redirect_to workspace_path(workspace)
   end
 
-  def succeed_channel_creation(channel)
+  def succeed_channel_creation(workspace_channel)
     flash[:notice] = 'Channel created successfully'
-    redirect_to workspace_channel_path(workspace, channel)
+    redirect_to workspace_channel_path(workspace, workspace_channel)
   end
 end
