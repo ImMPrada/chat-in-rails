@@ -34,4 +34,16 @@
       focus:ring-0
       focus:border-grey-soft;
   }
+  .text-noto-18-700 {
+    @apply font-sans text-lg font-bold leading-normal tracking-tighter
+  }
+  .text-noto-18-400 {
+    @apply font-sans text-base font-normal leading-normal tracking-tighter
+  }
+  .text-noto-14-500 {
+    @apply font-sans text-sm font-medium leading-normal tracking-tighter
+  }
+  .text-noto-18-500 {
+    @apply font-sans text-base font-medium leading-normal tracking-tighter
+  }
 }
