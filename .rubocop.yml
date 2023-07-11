@@ -1,0 +1,51 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'db/*'
+    - 'db/**/*'
+    - 'config/*'
+    - 'config/**/*'
+    - 'test/*'
+    - 'test/**/**'
+    - 'spec/spec_helper.rb'
+    - 'spec/services/*'
+    - 'spec/services/**/*'
+    - 'spec/rails_helper.rb'
+    - 'bin/*'
+    - 'bin/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'config.ru'
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ParameterLists:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
