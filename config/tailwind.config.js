@@ -15,7 +15,7 @@ module.exports = {
     },
     colors: {
       'black-dark': '#0B090B',
-      'black': '#120F14',
+      'black': '#120F13',
       'black-soft': '#252329',
       'grey': '#3C393F',
       'grey-soft': '#828282',
