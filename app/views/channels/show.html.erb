@@ -1,4 +1,9 @@
-<div id="workspace_channel_sidebar" class="w-1/5 h-full grid grid-rows-[auto,1fr,75px]">
+<div id="workspace_channel_sidebar"
+      class="w-1/5
+             h-full
+             grid
+             grid-rows-[auto,1fr,75px]"
+>
   <%= render(
     partial: 'partials/workspace_channel/members_list',
     locals: {
@@ -17,6 +22,7 @@
               py-4
               pr-5
               pl-8
+              mb-5
               with-shadow
               w-full
               row-start-1"
@@ -33,7 +39,8 @@
               row-start-2
               bg-black-soft
               overflow-y-auto
-              py-4
+              pt-14
+              pb-20
               px-16">
 
     <%= render(

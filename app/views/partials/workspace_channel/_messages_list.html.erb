@@ -1,4 +1,17 @@
+<% current_date = nil %>
+
 <% messages.each do |message| %>
+  <% formated_message_date = format_date(message.created_at.to_date) %>
+
+  <% if current_date != formated_message_date %>
+    <div class="flex justify-center gap-4">
+      <span class="text-noto-12-600 text-grey-soft">
+        <%= formated_message_date %>
+      </span>
+    </div>
+    <% current_date = formated_message_date %>
+  <% end %>
+
   <div class="w-full flex gap-7">
     <img
       src="<%= message.author.avatar_url %>"
@@ -11,7 +24,7 @@
           <%= message.author.username %>
         </span>
         <span class="text-noto-14-500 text-grey-soft">
-          <%= message.created_at %>
+          <%= friendly_date(message.created_at) %>
         </span>
       </div>
       <p class="block text-noto-18-500 text-white">

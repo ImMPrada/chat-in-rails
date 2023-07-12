@@ -13,6 +13,7 @@ module.exports = {
         sans: ['Noto Sans', 'sans-serif'],
       },
       fontSize: {
+        xs: '0.75rem',
         sm: '0.875rem',
         base: '1rem',    // Equivalent to 16px (default base font size)
         lg: '1.125rem',
@@ -20,6 +21,7 @@ module.exports = {
       fontWeight: {
         normal: 400,
         medium: 500,
+        midbold: 600,
         bold: 700,
       },
       lineHeight: {

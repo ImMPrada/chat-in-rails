@@ -46,4 +46,7 @@
   .text-noto-18-500 {
     @apply font-sans text-base font-medium leading-normal tracking-tighter
   }
+  .text-noto-12-600 {
+    @apply font-sans text-xs font-midbold leading-normal tracking-tighter
+  }
 }

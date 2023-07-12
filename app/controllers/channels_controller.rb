@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
     workspace_channels
     @members = workspace.users
     @channel_members = workspace_channel.users
-    @messages = workspace_channel.messages
+    @messages = workspace_channel.messages.sort
   end
 
   def index
