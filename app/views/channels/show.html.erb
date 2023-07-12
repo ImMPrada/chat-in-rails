@@ -10,7 +10,16 @@
   ) %>
 </div>
 
-<div id="workspace_channel_sidebar" class="w-4/5 h-full grid grid-rows-[4fr,1fr]">
-  <div class="w-full row-start-1 bg-green">HERE WILL BE DISPLAYED THE CONVERSATION</div>
-  <div class="w-full row-start-2 bg-red">HERE THE TEXT FIELD</div>
+<div class="w-4/5 h-full grid grid-rows-[7fr,1fr]">
+  <div class="w-full row-start-1 bg-green-soft">HERE WILL BE DISPLAYED THE CONVERSATION</div>
+
+  <div id="workspace_channel_new_message" class="w-full row-start-2 bg-green">
+    <%= render(
+      partial: 'partials/workspace_channel/new_message',
+      locals: {
+        workspace_channel: @workspace_channel,
+        workspace: @workspace
+      }
+    ) %>
+  </div>
 </div>
