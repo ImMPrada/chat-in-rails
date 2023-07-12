@@ -3,7 +3,7 @@
     model: Message.new,
     url: workspace_channel_messages_path(workspace, workspace_channel),
     class: "h-full w-full",
-    data: { turbo: false }
+    data: { turbo: true }
   ) do |form| %>
 
     <%= form.text_area(

@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
     workspace_channels
     @members = workspace.users
     @channel_members = workspace_channel.users
-    @messages = workspace_channel.messages.sort
+    @messages = workspace_channel.messages.order(created_at: :asc)
   end
 
   def index
@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    channel_creator = Channels::Creator.new(channel_params,
+    channel_creator = Channels::Creator.new(channel_params, 
                                             current_user,
                                             workspace,
                                             current_user.id)

@@ -42,7 +42,9 @@
               overflow-y-auto
               pt-14
               pb-20
-              px-16">
+              px-16"
+    id="workspace_channel_messages"
+  >
 
     <%= render(
       partial: 'partials/workspace_channel/messages_list',
@@ -52,7 +54,7 @@
     ) %>
   </div>
 
-  <div class="w-full row-start-3 bg-black-soft">
+  <div id="new_message_box" class="w-full row-start-3 bg-black-soft">
     <%= render(
       partial: 'partials/workspace_channel/new_message',
       locals: {
