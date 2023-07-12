@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+Message.destroy_all
 WorkspaceChannel.destroy_all
 Workspace.destroy_all
 Role.destroy_all
@@ -50,3 +51,323 @@ WorkspaceChannelUser.create(user: admin_user, workspace_channel: general_channel
                        role: member_role)
   WorkspaceChannelUser.create(user: member_user, workspace_channel: general_channel)
 end
+
+created_at = Date.today - 1.day
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+created_at = Date.today - 3.day
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+created_at = Date.today - 5.day
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+created_at = Date.today - 1.day
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+created_at = Date.today
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: owner_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
+
+Message.create(
+  author: admin_user,
+  classifiable: general_channel,
+  content: Faker::Lorem.paragraph(sentence_count: (10..20).to_a.sample),
+  created_at:
+)
