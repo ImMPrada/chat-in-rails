@@ -35,28 +35,13 @@
               overflow-y-auto
               py-4
               px-16">
-    <% @messages.each do |message| %>
-      <div class="w-full flex gap-7">
-        <img
-          src="<%= message.author.avatar_url %>"
-          alt="<%= message.author.username %>"
-          class="block w-10 h-10 rounded"
-        >
-        <div class="flex flex-col gap-2">
-          <div class="flex items-center gap-4">
-            <span class="text-noto-18-700 text-grey-soft">
-              <%= message.author.username %>
-            </span>
-            <span class="text-noto-14-500 text-grey-soft">
-              <%= message.created_at %>
-            </span>
-          </div>
-          <p class="block text-noto-18-500 text-white">
-            <%= message.content %>
-          </p>
-        </div>
-      </div>
-    <% end %>
+
+    <%= render(
+      partial: 'partials/workspace_channel/messages_list',
+      locals: {
+        messages: @messages
+      }
+    ) %>
   </div>
 
   <div class="w-full row-start-3 bg-green">
