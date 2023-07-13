@@ -18,5 +18,6 @@ RSpec.describe WorkspaceChannel, type: :model do
     it { is_expected.to have_many(:workspace_channel_users).dependent(:destroy) }
     it { is_expected.to have_many(:users).through(:workspace_channel_users) }
     it { is_expected.to belong_to(:workspace) }
+    it { is_expected.to have_many(:messages).dependent(:destroy) }
   end
 end

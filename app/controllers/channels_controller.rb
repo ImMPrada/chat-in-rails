@@ -7,6 +7,7 @@ class ChannelsController < ApplicationController
     workspace_channels
     @members = workspace.users
     @channel_members = workspace_channel.users
+    @messages = workspace_channel.messages.order(created_at: :asc)
   end
 
   def index

@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_08_132428) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_212844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "responded_message_id"
+    t.string "classifiable_type", null: false
+    t.bigint "classifiable_id", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_messages_on_author_id"
+    t.index ["classifiable_type", "classifiable_id"], name: "index_messages_on_classifiable"
+    t.index ["responded_message_id"], name: "index_messages_on_responded_message_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
@@ -74,6 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_08_132428) do
     t.index ["name"], name: "index_workspaces_on_name", unique: true
   end
 
+  add_foreign_key "messages", "messages", column: "responded_message_id"
+  add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "workspace_channel_users", "users"
   add_foreign_key "workspace_channel_users", "workspace_channels"
   add_foreign_key "workspace_channels", "workspaces"

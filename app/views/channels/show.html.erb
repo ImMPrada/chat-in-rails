@@ -1,4 +1,9 @@
-<div id="workspace_channel_sidebar" class="w-1/5 h-full grid grid-rows-[auto,1fr,75px]">
+<div id="workspace_channel_sidebar"
+      class="w-1/5
+             h-full
+             grid
+             grid-rows-[auto,1fr,75px]"
+>
   <%= render(
     partial: 'partials/workspace_channel/members_list',
     locals: {
@@ -10,7 +15,52 @@
   ) %>
 </div>
 
-<div id="workspace_channel_sidebar" class="w-4/5 h-full grid grid-rows-[4fr,1fr]">
-  <div class="w-full row-start-1 bg-green">HERE WILL BE DISPLAYED THE CONVERSATION</div>
-  <div class="w-full row-start-2 bg-red">HERE THE TEXT FIELD</div>
+<div class="w-4/5 h-full grid grid-rows-[auto,auto,1fr]">
+  <div class="flex
+              justify-start
+              bg-black-soft
+              gap-4
+              py-4
+              pr-5
+              pl-8
+              mb-5
+              with-shadow
+              w-full
+              row-start-1"
+  >
+    <h2 class="text-white text-noto-18-700">
+      <%= @workspace_channel.name.upcase %>
+    </h2>
+  </div>
+
+  <div class="flex
+              flex-col
+              gap-9
+              w-full
+              row-start-2
+              bg-black-soft
+              overflow-y-auto
+              pt-14
+              pb-20
+              px-16"
+    id="workspace_channel_messages"
+  >
+
+    <%= render(
+      partial: 'partials/workspace_channel/messages_list',
+      locals: {
+        messages: @messages
+      }
+    ) %>
+  </div>
+
+  <div id="new_message_box" class="w-full row-start-3 bg-black-soft">
+    <%= render(
+      partial: 'partials/workspace_channel/new_message',
+      locals: {
+        workspace_channel: @workspace_channel,
+        workspace: @workspace
+      }
+    ) %>
+  </div>
 </div>

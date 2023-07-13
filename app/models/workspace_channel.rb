@@ -12,6 +12,7 @@ class WorkspaceChannel < ApplicationRecord
 
   has_many :workspace_channel_users, dependent: :destroy
   has_many :users, through: :workspace_channel_users
+  has_many :messages, as: :classifiable, dependent: :destroy
 
   private
 

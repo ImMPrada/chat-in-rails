@@ -1,0 +1,28 @@
+<% current_date = nil %>
+
+<% messages.each do |message| %>
+  <% formated_message_date = format_date(message.created_at.to_date) %>
+
+  <% if current_date != formated_message_date %>
+    <div class="w-full h-0.5 flex justify-between items-center">
+      <div class="flex-grow bg-grey-soft w-full h-px"></div>
+      <span class="block
+                   w-80
+                   text-noto-12-600
+                   text-grey-soft
+                   text-center"
+      >
+        <%= formated_message_date %>
+      </span>
+      <div class="flex-grow bg-grey-soft w-full h-px"></div>
+    </div>
+    <% current_date = formated_message_date %>
+  <% end %>
+
+  <%= render(
+      partial: 'partials/workspace_channel/message',
+      locals: {
+        message:
+      }
+    ) %>
+<% end %>
