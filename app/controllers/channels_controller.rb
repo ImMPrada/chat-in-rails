@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    channel_creator = Channels::Creator.new(channel_params, 
+    channel_creator = Channels::Creator.new(channel_params,
                                             current_user,
                                             workspace,
                                             current_user.id)
