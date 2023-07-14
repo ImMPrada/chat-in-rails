@@ -1,46 +1,31 @@
 class MessagesController < ApplicationController
   def create
+    @message_box_turbo_tag = message_box_turbo_tag
+    @url = url
+
     message_creator = Messages::Creator.new(
       permitted_params,
-      channel_destination,
+      destination,
       current_user
     )
     message = message_creator.commit
-    return suceed_messaged(message) if message
 
-    failed_messaged(message_creator)
+    message ? respond_with_succes(message) : respond_with_failure(message_creator)
+
+    respond_to { |format| format.turbo_stream }
   end
 
   private
 
-  def suceed_messaged(message)
-    render turbo_stream: [
-      turbo_stream.append(:workspace_channel_messages,
-                          partial: 'partials/workspace_channel/message',
-                          locals: {
-                            message:
-                          }),
-      turbo_stream.update(:new_message_box,
-                          partial: 'partials/workspace_channel/new_message',
-                          locals: {
-                            workspace_channel: channel_destination,
-                            workspace:
-                          }),
-      turbo_stream.update(:notifications_bar, '')
-    ]
+  def respond_with_succes(message)
+    @message_succed = true
+    @messages_turbo_tag = messages_turbo_tag
+    @message = message
   end
 
-  def failed_messaged(message_creator)
-    render turbo_stream: [
-      turbo_stream.update(:new_message_box,
-                          partial: 'partials/workspace_channel/new_message',
-                          locals: {
-                            workspace_channel: channel_destination,
-                            workspace:
-                          }),
-      turbo_stream.update(:notifications_bar,
-                          "<p class='alert'>#{message_creator.errors_messages.join(', ')}</p>")
-    ]
+  def respond_with_failure(message_creator)
+    @message_succed = false
+    @message = message_creator.errors_messages.join(', ')
   end
 
   def permitted_params
@@ -51,7 +36,35 @@ class MessagesController < ApplicationController
     @workspace ||= Workspace.find(params[:workspace_id])
   end
 
-  def channel_destination
-    @channel_destination ||= WorkspaceChannel.find(params[:channel_id])
+  def destination
+    @destination ||= find_record
+  end
+
+  def find_record
+    return WorkspaceChannel.find(params[:channel_id]) if params[:channel_id]
+
+    User.find(params[:user_id])
+  end
+
+  def url
+    return workspace_channel_path(workspace, destination) if destination.instance_of? WorkspaceChannel
+
+    workspace_user_messages_path(workspace, destination)
+  end
+
+  def message_box_turbo_tag
+    return "workspace_channel_#{destination.id}_message_box" if workspace_channel?
+
+    "user_#{destination.id}_message_box"
+  end
+
+  def messages_turbo_tag
+    return "workspace_channel_#{destination.id}_messages" if workspace_channel?
+
+    "user_#{destination.id}_messages"
+  end
+
+  def workspace_channel?
+    destination.instance_of? WorkspaceChannel
   end
 end

@@ -1,0 +1,24 @@
+<% if @message_succed %>
+  <%= turbo_stream.update(
+    "notifications_bar",
+    ""
+  ) %>
+
+  <%= turbo_stream.append(
+    @messages_turbo_tag,
+    partial: "partials/workspace_channel/message",
+    locals: { message: @message }
+  ) %>
+<% else %>
+  <%= turbo_stream.update(
+    "notifications_bar",
+    "<p class='alert'>#{@message}</p>"
+  ) %>
+<% end %>
+
+<%= turbo_stream.update(
+  @message_box_turbo_tag,
+  partial: "partials/workspace_channel/new_message",
+  locals: { url: @url }
+) %>
+
