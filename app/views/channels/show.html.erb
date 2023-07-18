@@ -1,4 +1,4 @@
-<div id="workspace_channel_sidebar"
+<div id="channel_sidebar"
       class="w-1/5
              h-full
              grid
@@ -7,7 +7,7 @@
   <%= render(
     partial: 'partials/workspace_channel/members_list',
     locals: {
-      workspace_channel: @workspace_channel,
+      workspace_channel: @channel,
       workspace: @workspace,
       user: current_user,
       channel_members: @channel_members
@@ -30,7 +30,7 @@
                 row-start-1"
     >
       <h2 class="text-white text-noto-18-700">
-        <%= @workspace_channel.name.upcase %>
+        <%= @channel.name.upcase %>
       </h2>
     </div>
 
@@ -44,7 +44,7 @@
                 pt-14
                 pb-20
                 px-16"
-      id=<%= "#{dom_id(@workspace_channel)}_messages" %>
+      id=<%= "#{dom_id(@channel)}_messages" %>
     >
 
       <%= render(
@@ -55,7 +55,7 @@
       ) %>
     </div>
 
-    <div id=<%= "#{dom_id(@workspace_channel)}_message_box"%>
+    <div id=<%= "#{dom_id(@channel)}_message_box"%>
       class="w-full
              row-start-3
              bg-black-soft"
@@ -63,7 +63,7 @@
       <%= render(
         partial: 'partials/workspace_channel/new_message',
         locals: {
-          url: workspace_channel_messages_path(@workspace, @workspace_channel)
+          url: workspace_channel_messages_path(@workspace, @channel)
         }
       ) %>
     </div>

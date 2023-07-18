@@ -3,7 +3,7 @@ class WorkspacesController < ApplicationController
 
   def show
     workspace = Workspace.find(params[:id])
-    channel = workspace.workspace_channels.first
+    channel = workspace.channels.first
     redirect_to workspace_channel_path(workspace, channel)
   end
 

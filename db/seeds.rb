@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Message.destroy_all
-WorkspaceChannel.destroy_all
+Channel.destroy_all
 Workspace.destroy_all
 Role.destroy_all
 User.destroy_all
@@ -27,19 +27,19 @@ admin_user = User.create(email: 'mapra99+test@gmail.com',
                          username: 'mapra.1999')
 
 workspace = Workspace.create(name: 'BrodGden')
-general_channel = WorkspaceChannel.create(name: 'general', workspace:)
+general_channel = Channel.create(name: 'general', workspace:)
 
 WorkspaceUser.create(user: owner_user,
                      workspace:,
                      role: owner_role)
 
-WorkspaceChannelUser.create(user: owner_user, workspace_channel: general_channel)
+ChannelUser.create(user: owner_user, channel: general_channel)
 
 WorkspaceUser.create(user: admin_user,
                      workspace:,
                      role: admin_role)
 
-WorkspaceChannelUser.create(user: admin_user, workspace_channel: general_channel)
+ChannelUser.create(user: admin_user, channel: general_channel)
 
 # Define user names and emails
 user_data = [
@@ -111,7 +111,7 @@ users = user_data.map do |user_params|
   WorkspaceUser.create(user: created_user,
                        workspace:,
                        role: member_role)
-  WorkspaceChannelUser.create(user: created_user, workspace_channel: general_channel)
+  ChannelUser.create(user: created_user, channel: general_channel)
   created_user
 end
 

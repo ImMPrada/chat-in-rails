@@ -1,4 +1,4 @@
-class WorkspaceChannel < ApplicationRecord
+class Channel < ApplicationRecord
   include Destinationable
 
   before_create :add_avatar_url
@@ -12,16 +12,16 @@ class WorkspaceChannel < ApplicationRecord
 
   belongs_to :workspace
 
-  has_many :workspace_channel_users, dependent: :destroy
-  has_many :users, through: :workspace_channel_users
+  has_many :channel_users, dependent: :destroy
+  has_many :users, through: :channel_users
   has_many :messages, as: :classifiable, dependent: :destroy
 
   def message_box_turbo_tag
-    "workspace_channel_#{id}_message_box"
+    "channel_#{id}_message_box"
   end
 
   def messages_turbo_tag
-    "workspace_channel_#{id}_messages"
+    "channel_#{id}_messages"
   end
 
   private

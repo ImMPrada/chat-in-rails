@@ -69,18 +69,18 @@ RSpec.describe Workspaces::Creator do
       end
 
       it 'creates a channel named "general"' do
-        expect(WorkspaceChannel.first.name).to eq 'general'
+        expect(Channel.first.name).to eq 'general'
       end
 
       it 'creates channel user by adding the owner user to the channel' do
-        expect(WorkspaceChannelUser.first.user).to eq user
+        expect(ChannelUser.first.user).to eq user
       end
 
       it 'creates the right number of records' do
         expect(Workspace.count).to eq 1
         expect(WorkspaceUser.count).to eq 1
-        expect(WorkspaceChannel.count).to eq 1
-        expect(WorkspaceChannelUser.count).to eq 1
+        expect(Channel.count).to eq 1
+        expect(ChannelUser.count).to eq 1
       end
     end
 

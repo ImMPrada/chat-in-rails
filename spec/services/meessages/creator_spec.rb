@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Messages::Creator do
-  subject(:creator) { described_class.new(params, workspace_channel, current_user) }
+  subject(:creator) { described_class.new(params, channel, current_user) }
 
   let(:current_user) { create(:user) }
-  let(:workspace_channel) { create(:workspace_channel) }
+  let(:channel) { create(:channel) }
 
   describe '#commit' do
     let(:params) { { content: 'test channel' } }

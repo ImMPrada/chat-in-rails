@@ -17,7 +17,7 @@ RSpec.describe Workspace, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:workspace_users).dependent(:destroy) }
-    it { is_expected.to have_many(:workspace_channels).dependent(:destroy) }
+    it { is_expected.to have_many(:channels).dependent(:destroy) }
     it { is_expected.to have_many(:users).through(:workspace_users) }
   end
 end

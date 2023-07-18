@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
   end
 
   def find_destination
-    return WorkspaceChannel.find(params[:channel_id]) if params[:channel_id]
+    return Channel.find(params[:channel_id]) if params[:channel_id]
 
     User.find(params[:user_id])
   end

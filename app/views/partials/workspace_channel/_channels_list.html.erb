@@ -1,7 +1,7 @@
 <%# locals: {
   workspace: @workspace,
   user: current_user,
-  workspace_channels: @workspace_channels
+  channels: @channels
 } %>
 
 <div class="flex
@@ -22,7 +22,7 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <% if can?(workspace, :create, WorkspaceChannel) %>
+    <% if can?(workspace, :create, Channel) %>
       <%= link_to(
         "+",
         new_workspace_channel_path(workspace),
@@ -80,7 +80,7 @@
             bg-black
             overflow-y-auto"
 >
-  <% workspace_channels.each do |workspace_channel| %> 
+  <% channels.each do |workspace_channel| %> 
     <a
       class="block flex gap-3"
       href=<%= workspace_channel_path(workspace, workspace_channel) %>

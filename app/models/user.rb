@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :workspace_users, dependent: :destroy
   has_many :workspaces, through: :workspace_users
   has_many :roles, through: :workspace_users
-  has_many :workspace_channel_users, dependent: :destroy
+  has_many :channel_users, dependent: :destroy
 
   def admin?(workspace)
     workspace_user = WorkspaceUser.find_by(user: self, workspace:)
