@@ -1,15 +1,17 @@
-<% if @message_succed %>
+<% if @message_creation_result == :success %>
   <%= turbo_stream.update(
     "notifications_bar",
     ""
   ) %>
 
   <%= turbo_stream.append(
-    @messages_turbo_tag,
+    @destination.messages_turbo_tag,
     partial: "partials/workspace_channel/message",
     locals: { message: @message }
   ) %>
-<% else %>
+<% end %>
+
+<% if @message_creation_result == :failure %>
   <%= turbo_stream.update(
     "notifications_bar",
     "<p class='alert'>#{@message}</p>"
@@ -17,8 +19,8 @@
 <% end %>
 
 <%= turbo_stream.update(
-  @message_box_turbo_tag,
+  @destination.message_box_turbo_tag,
   partial: "partials/workspace_channel/new_message",
-  locals: { url: @url }
+  locals: { url: @destination.destination_url(@workspace) }
 ) %>
 
