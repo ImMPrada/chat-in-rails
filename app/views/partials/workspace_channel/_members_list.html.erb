@@ -62,7 +62,9 @@
   <% channel_members.each do |member| %>
     <a
       class="block flex gap-7"
-      href="/workspaces/4"
+      href=<%= workspace_user_path(workspace, member) %>
+      data-turbo-frame="tool_sidebar"
+      data-turbo-frame-loader="eager"
     >
       <img
         src=<%= member.avatar_url %>

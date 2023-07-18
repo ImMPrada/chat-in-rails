@@ -1,57 +1,42 @@
 class MessagesController < ApplicationController
   def create
+    @workspace = Workspace.find(params[:workspace_id])
+
     message_creator = Messages::Creator.new(
       permitted_params,
-      channel_destination,
+      destination,
       current_user
     )
     message = message_creator.commit
-    return suceed_messaged(message) if message
 
-    failed_messaged(message_creator)
+    message ? respond_with_success(message) : respond_with_failure(message_creator)
+
+    respond_to { |format| format.turbo_stream }
   end
 
   private
 
-  def suceed_messaged(message)
-    render turbo_stream: [
-      turbo_stream.append(:workspace_channel_messages,
-                          partial: 'partials/workspace_channel/message',
-                          locals: {
-                            message:
-                          }),
-      turbo_stream.update(:new_message_box,
-                          partial: 'partials/workspace_channel/new_message',
-                          locals: {
-                            workspace_channel: channel_destination,
-                            workspace:
-                          }),
-      turbo_stream.update(:notifications_bar, '')
-    ]
+  def respond_with_success(message)
+    @message_creation_result = :success
+    @message = message
   end
 
-  def failed_messaged(message_creator)
-    render turbo_stream: [
-      turbo_stream.update(:new_message_box,
-                          partial: 'partials/workspace_channel/new_message',
-                          locals: {
-                            workspace_channel: channel_destination,
-                            workspace:
-                          }),
-      turbo_stream.update(:notifications_bar,
-                          "<p class='alert'>#{message_creator.errors_messages.join(', ')}</p>")
-    ]
+  def respond_with_failure(message_creator)
+    @message_creation_result = :failure
+    @message = message_creator.errors_messages.join(', ')
   end
 
   def permitted_params
     params.require(:message).permit(:content)
   end
 
-  def workspace
-    @workspace ||= Workspace.find(params[:workspace_id])
+  def destination
+    @destination ||= find_destination
   end
 
-  def channel_destination
-    @channel_destination ||= WorkspaceChannel.find(params[:channel_id])
+  def find_destination
+    return WorkspaceChannel.find(params[:channel_id]) if params[:channel_id]
+
+    User.find(params[:user_id])
   end
 end

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Destinationable
+
   before_create :add_avatar_url
 
   # Include default devise modules. Others available are:
@@ -40,7 +42,19 @@ class User < ApplicationRecord
     workspace_user.role.member?
   end
 
+  def message_box_turbo_tag
+    "user_#{id}_message_box"
+  end
+
+  def messages_turbo_tag
+    "user_#{id}_messages"
+  end
+
   private
+
+  def destination_path
+    :workspace_user_messages_path
+  end
 
   def add_avatar_url
     self.avatar_url = "https://api.dicebear.com/6.x/bottts/svg?seed=#{CGI.escape(username)}"

@@ -20,4 +20,16 @@ RSpec.describe WorkspaceChannel, type: :model do
     it { is_expected.to belong_to(:workspace) }
     it { is_expected.to have_many(:messages).dependent(:destroy) }
   end
+
+  describe '#message_box_turbo_tag' do
+    it 'returns the correct turbo tag' do
+      expect(workspace_channel.message_box_turbo_tag).to eq("workspace_channel_#{workspace_channel.id}_message_box")
+    end
+  end
+
+  describe '#messages_turbo_tag' do
+    it 'returns the correct turbo tag' do
+      expect(workspace_channel.messages_turbo_tag).to eq("workspace_channel_#{workspace_channel.id}_messages")
+    end
+  end
 end
