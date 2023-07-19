@@ -1,7 +1,6 @@
 class WorkspaceChannel < ApplicationCable::Channel
   def subscribed
-    byebug
-    # stream_from "some_channel"
+    stream_for 'workspace_channel'
   end
 
   def unsubscribed
