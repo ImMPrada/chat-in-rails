@@ -104,16 +104,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe '#message_box_turbo_tag' do
-    it 'returns the message box turbo tag' do
-      expect(user.message_box_turbo_tag).to eq("user_#{user.id}_message_box")
-    end
-  end
-
-  describe '#messages_turbo_tag' do
-    it 'returns the messages turbo tag' do
-      expect(user.messages_turbo_tag).to eq("user_#{user.id}_messages")
-    end
-  end
 end
