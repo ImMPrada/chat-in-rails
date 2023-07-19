@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Destinationable
+
   before_create :add_avatar_url
 
   # Include default devise modules. Others available are:

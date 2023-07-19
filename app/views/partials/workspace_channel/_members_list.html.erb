@@ -61,10 +61,12 @@
 >
   <% channel_members.each do |member| %>
     <a
-      class="block flex gap-7"
+      class="block flex gap-7 relative"
       href=<%= workspace_user_path(workspace, member) %>
       data-turbo-frame="tool_sidebar"
       data-turbo-frame-loader="eager"
+      data-controller="membercard"
+      data-action="click->membercard#remove_new_message_signal"
     >
       <img
         src=<%= member.avatar_url %>
@@ -73,6 +75,12 @@
       <span class="block self-center text-noto-18-700 text-grey-soft">
         <%= member.username %>
       </span>
+
+      <div
+        class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
+        id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
+        data-membercard-target = "newMessageSignal"
+      ></div>
     </a>
   <% end %>
 </div>

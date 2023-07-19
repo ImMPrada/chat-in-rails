@@ -3,7 +3,9 @@
     model: Message.new,
     url:,
     class: "w-full h-50",
-    data: { turbo: true }
+    data: {
+      turbo: true
+    }
   ) do |form| %>
 
     <%= form.text_area(

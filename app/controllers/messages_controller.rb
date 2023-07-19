@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     )
     message = message_creator.commit
 
-    message ? respond_with_success(message) : respond_with_failure(message_creator)
+    respond_with_success(message) if message
   end
 
   private
@@ -27,11 +27,6 @@ class MessagesController < ApplicationController
     else
       broadcaster.broadcast_to_channel(destination.id)
     end
-  end
-
-  def respond_with_failure(message_creator)
-    @message_creation_result = :failure
-    @message = message_creator.errors_messages.join(', ')
   end
 
   def permitted_params

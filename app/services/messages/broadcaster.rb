@@ -7,15 +7,15 @@ module Messages
 
     def broadcast_to_user_dm(userd_ids)
       containers = [
-        "user_#{userd_ids.first}_user_#{userd_ids.second}_messages",
-        "user_#{userd_ids.second}_user_#{userd_ids.first}_messages"
+        "user_#{userd_ids.first}_user_#{userd_ids.second}",
+        "user_#{userd_ids.second}_user_#{userd_ids.first}"
       ]
 
       broadcast_to(containers)
     end
 
     def broadcast_to_channel(channel_id)
-      containers = ["channel_#{channel_id}_messages"]
+      containers = ["channel_#{channel_id}"]
       broadcast_to(containers)
     end
 

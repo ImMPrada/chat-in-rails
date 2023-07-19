@@ -1,4 +1,6 @@
 class Channel < ApplicationRecord
+  include Destinationable
+
   before_create :add_avatar_url
 
   validates :name,

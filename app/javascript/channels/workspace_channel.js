@@ -2,9 +2,6 @@ import consumer from "channels/consumer"
 
 consumer.subscriptions.create('WorkspaceChannel', {
   connected() {
-    // Called when the subscription is ready for use on the server
-    console.log('connected to ChatRoom')
-
   },
 
   disconnected() {
@@ -12,6 +9,28 @@ consumer.subscriptions.create('WorkspaceChannel', {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    this.addMessageToChat(data.containers, data.body)
+  },
+
+  addMessageToChat(containersIdsPrefix, message) {
+    containersIdsPrefix.forEach(containerIdPrefix => this.addMessageToContainer(containerIdPrefix, message))
+  },
+
+  addMessageToContainer(containerIdPrefix, message) {
+    const targetContainer = document.getElementById(`${containerIdPrefix}_messages`)
+    if (!targetContainer) {
+      this.addNotificationIconToContainer(containerIdPrefix)
+      return
+    }
+
+    targetContainer.insertAdjacentHTML('beforeend', message)
+    targetContainer.scrollTop = targetContainer.scrollHeight
+  },
+
+  addNotificationIconToContainer(containerIdPrefix) {
+    const targetContainer = document.getElementById(`${containerIdPrefix}_new_message_signal`)
+    if (!targetContainer) return
+
+    targetContainer.classList.remove('hidden')
   }
 });

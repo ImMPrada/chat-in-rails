@@ -1,6 +1,15 @@
-<% if @message_creation_result == :failure %>
+<% if @destination.destination_path == :workspace_channel_messages_path %>
   <%= turbo_stream.update(
-    "notifications_bar",
-    "<p class='alert'>#{@message}</p>"
+    'channel_message_box',
+    partial: "partials/workspace_channel/new_message",
+    locals: { url: @destination.destination_url(@workspace) }
+  ) %>
+<% end %>
+
+<% if @destination.destination_path == :workspace_user_messages_path %>
+  <%= turbo_stream.update(
+    'users_message_box',
+    partial: "partials/workspace_channel/new_message",
+    locals: { url: @destination.destination_url(@workspace) }
   ) %>
 <% end %>
