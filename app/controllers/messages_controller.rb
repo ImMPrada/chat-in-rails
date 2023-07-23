@@ -9,21 +9,24 @@ class MessagesController < ApplicationController
     )
     message = message_creator.commit
 
-    message ? respond_with_success(message) : respond_with_failure(message_creator)
-
-    respond_to { |format| format.turbo_stream }
+    respond_with_success(message) if message
   end
 
   private
 
   def respond_with_success(message)
-    @message_creation_result = :success
-    @message = message
-  end
+    broadcaster = Messages::Broadcaster.new(message, self)
 
-  def respond_with_failure(message_creator)
-    @message_creation_result = :failure
-    @message = message_creator.errors_messages.join(', ')
+    if destination.destination_path == :workspace_user_messages_path
+      broadcaster.broadcast_to_user_dm(
+        [
+          destination.id,
+          current_user.id
+        ]
+      )
+    else
+      broadcaster.broadcast_to_channel(destination.id)
+    end
   end
 
   def permitted_params

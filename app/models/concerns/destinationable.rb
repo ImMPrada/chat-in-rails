@@ -1,12 +1,4 @@
 module Destinationable
-  def message_box_turbo_tag
-    raise NotImplementedError
-  end
-
-  def messages_turbo_tag
-    raise NotImplementedError
-  end
-
   def destination_path
     raise NotImplementedError
   end
