@@ -80,3 +80,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "cancancan", "~> 3.5"
+
+gem "primer_view_components", "~> 0.5.0"
