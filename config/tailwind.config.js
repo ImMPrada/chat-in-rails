@@ -14,7 +14,7 @@ module.exports = {
       },
       fontSize: {
         xs: '0.75rem',
-        sm: '0.875rem',
+        xl: '0.875rem',
         base: '1rem',    // Equivalent to 16px (default base font size)
         lg: '1.125rem',
       },

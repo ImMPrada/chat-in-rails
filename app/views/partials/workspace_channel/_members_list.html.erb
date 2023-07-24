@@ -8,7 +8,9 @@
             flex-col
             with-shadow
             w-full
-            bg-black"
+            bg-black
+            row-start-1
+            col-start-1"
 >
   <div class="flex
               justify-start
@@ -57,7 +59,9 @@
             pr-5
             pl-8
             bg-black
-            overflow-y-auto"
+            overflow-y-auto
+            row-start-2
+            col-start-1"
 >
   <% channel_members.each do |member| %>
     <a
@@ -77,7 +81,7 @@
       </span>
 
       <div
-        class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
+        class="absolute h-2 w-2 bg-red rounded-full hidden"
         id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
         data-membercard-target = "newMessageSignal"
       ></div>
@@ -85,7 +89,18 @@
   <% end %>
 </div>
 
-<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full">
+<div class="w-full
+            flex
+            justify-between
+            py-4
+            pr-5
+            pl-8
+            with-shadow
+            bg-black-dark
+            h-full
+            row-start-3
+            col-start-1"
+>
   <%= render(
     partial: 'partials/workspace_channel/current_user_bar',
     locals: {
