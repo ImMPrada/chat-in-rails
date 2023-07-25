@@ -1,17 +1,40 @@
 <%=  turbo_frame_tag("tool_sidebar") do %>
-  <div class="border-l-4 md:w-[400px] xl:w-[600px] h-full grid grid-rows-[70px,1fr,auto]">
+  <div class="lg:border-l-4
+              max-lg:w-full
+              max-lg:absolute
+              max-lg:top-0
+              max-lg:left-0
+              max-lg:z-50
+              lg:w-[600px]
+              h-full
+              bg-black-soft
+              grid
+              grid-rows-[70px,1fr,auto]"
+  >
     <div class="flex
                 justify-start
                 bg-black-soft
                 gap-4
                 py-4
                 pr-5
-                pl-8
+                pl-2
+                sm:pl-8
                 mb-5
                 with-shadow
                 w-full
-                row-start-1"
+                row-start-1
+                items-center"
     >
+      <div class="m-2
+                  sm:m-4
+                  h-fit
+                  fill-white
+                  hover:cursor-pointer"
+        data-controller="channelToolbar"
+        data-action="click->channelToolbar#close"
+      >
+        <%= render(Primer::Beta::Octicon.new(:x, size: :medium)) %>
+      </div>
       <h2 class="text-white text-noto-18-700">
         <%= current_user.username.upcase %>  -  <%= @receiver.username.upcase %>
       </h2>
@@ -24,9 +47,10 @@
                 row-start-2
                 bg-black-soft
                 overflow-y-auto
-                pt-14
-                pb-20
-                px-16"
+                py-4
+                sm:pt-14
+                sm:pb-20
+                sm:px-16"
       id=<%= "#{dom_id(current_user)}_#{dom_id(@receiver)}_messages" %>
     >
 

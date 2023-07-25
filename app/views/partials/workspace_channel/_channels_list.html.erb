@@ -25,15 +25,21 @@
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
     <% if can?(workspace, :create, Channel) %>
-      <%= link_to(
-        "+",
-        new_workspace_channel_path(workspace),
-        data: {
-          turbo_frame: "modal",
-          turbo_frame_loading: "eager"
-        },
-        class: "block w-6 h-6 bg-black-soft text-white text-center"
-      ) %>
+      <a class="block
+                w-6
+                h-6
+                bg-black-soft
+                text-white
+                text-center
+                fill-white"
+        data-turbo-frame="new-channel-modal"
+        data-turbo-frame-loading="eager"
+        data-action="click->loading#start"
+        data-loading-turbotarget-value="new-channel-modal"
+        href=<%= new_workspace_channel_path(workspace) %>
+      >
+        <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
+      </a>
     <% end %>
   </div>
 
@@ -114,7 +120,8 @@
               h-fit
               fill-white
               row-start-1
-              col-start-2"
+              col-start-2
+              hover:cursor-pointer"
     data-controller="channelSidebar"
     data-action="click->channelSidebar#close"
   >

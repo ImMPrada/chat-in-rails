@@ -1,6 +1,6 @@
 <h2 class="text-white block"> add a new channel to <%= @workspace.name %> </h2>
 <%=  turbo_frame_tag(
-    "modal",
+    "new-channel-modal",
     class: ""
   ) do %>
   <div class="container
@@ -18,7 +18,7 @@
               items-center
               p-4"
   >
-    <div class="w-full md:w-[600px] p-2 md:p-8 bg-black rounded-3xl">
+    <div class="w-full md:w-[600px] p-4 md:p-8 bg-black rounded-xl sm:rounded-3xl">
       <%=
         form_with(
           model: @channel,

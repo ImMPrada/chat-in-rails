@@ -18,9 +18,9 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
-    <div class="container min-w-full h-screen flex bg-black-soft">
+    <div class="container min-w-full h-screen flex bg-black-soft" data-controller="loading">
       <%= yield %>
     </div>
-    <%= turbo_frame_tag "modal" %>
+    <%= turbo_frame_tag "new-channel-modal" %>
   </body>
 </html>
