@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'profiles#show'
 
-  resources :profiles, only: [:show]
+  resources :profiles, only: %i[show]
 
-  resources :invitations, only: %i[show], param: :token
-  
+  resources :invitations, only: %i[show update], param: :token do
+    post 'decline', to: 'invitations#decline'
+  end
+
   resources :workspaces, only: %i[show new create] do
     resources :invitations, only: %i[create]
 
