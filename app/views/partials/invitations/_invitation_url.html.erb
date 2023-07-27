@@ -1,0 +1,35 @@
+<div class="absolute
+              flex
+              justify-bewteen
+              items-center
+              w-full
+              h-full
+              text-white
+              font-sans
+              bg-black
+              rounded-lg
+              border
+              border-grey
+              z-20
+              p-4
+              gap-4
+              text-base"
+  id=<%= "workspace_#{workspace.id}_invitation_url" %>
+  data-controller="invitation-url"
+  data-invitation-url-id-value=<%= "workspace_#{workspace.id}_invitation_url" %>
+  data-invitation-url-invitationurl-value=<%= invitation_url(workspace_id: workspace.id, token: invitation.token) %>
+>
+  <div class="block max-w-4/5 overflow-x-auto no-scrollbar text-white text-noto-18-400">
+    <%= invitation_url(workspace_id: workspace.id, token: invitation.token) %>
+  </div>
+  <button class="w-fit hover:border-blue w-fit fill-white"
+    data-action="invitation-url#copy"
+  >
+    <%= render(Primer::Beta::Octicon.new(:copy, size: :medium)) %>
+  </button>
+  <button class="w-fit hover:border-blue w-fit fill-white"
+    data-action="invitation-url#close"
+  >
+    <%= render(Primer::Beta::Octicon.new(:x, size: :medium)) %>
+  </button>
+</div>

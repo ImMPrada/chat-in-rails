@@ -1,0 +1,8 @@
+<%= turbo_stream.prepend(
+  "workspace_#{@workspace.id}_invitation",
+  partial: "partials/invitations/invitation_url",
+  locals: {
+    invitation: @invitation,
+    workspace: @workspace
+  }
+) %>

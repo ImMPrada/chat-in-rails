@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_212844) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_005204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_212844) do
     t.datetime "updated_at", null: false
     t.string "description"
     t.index ["workspace_id"], name: "index_channels_on_workspace_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.string "token", null: false
+    t.bigint "workspace_id", null: false
+    t.bigint "receiver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_invitations_on_receiver_id"
+    t.index ["token"], name: "index_invitations_on_token", unique: true
+    t.index ["workspace_id"], name: "index_invitations_on_workspace_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -90,6 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_212844) do
   add_foreign_key "channel_users", "channels"
   add_foreign_key "channel_users", "users"
   add_foreign_key "channels", "workspaces"
+  add_foreign_key "invitations", "users", column: "receiver_id"
+  add_foreign_key "invitations", "workspaces"
   add_foreign_key "messages", "messages", column: "responded_message_id"
   add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "workspace_users", "roles"

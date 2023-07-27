@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :workspaces, through: :workspace_users
   has_many :roles, through: :workspace_users
   has_many :channel_users, dependent: :destroy
+  has_many :invitations, dependent: :destroy, foreign_key: :receiver_id
 
   def owner?(workspace)
     workspace_user = WorkspaceUser.find_by(user: self, workspace:)

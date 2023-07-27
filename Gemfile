@@ -80,3 +80,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "pundit", "~> 2.3"
+
+gem "primer_view_components", "~> 0.5.1"

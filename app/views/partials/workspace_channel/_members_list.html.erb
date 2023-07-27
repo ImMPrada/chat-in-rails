@@ -44,9 +44,25 @@
     <%= workspace_channel.description %>
   </p>
 
-  <h3 class="block pr-5 pl-8 mt-6 mb-6 text-white text-noto-18-700">
-    MEMBERS
-  </h3>
+  <div class="w-full
+              flex
+              justify-between
+              items-center
+              gap-2
+              pr-5
+              pl-8
+              mt-6
+              mb-6"
+  >
+    <h3 class="text-white text-noto-18-700">
+      MEMBERS
+    </h3>
+    <% if policy(@workspace).create_invitation? %>
+      <div class="bg-black h-6 w-6 text-white hover:cursor-pointer">
+        +
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="w-full

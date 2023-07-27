@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show]
 
+  resources :invitations, only: %i[show], param: :token
+  
   resources :workspaces, only: %i[show new create] do
+    resources :invitations, only: %i[create]
+
     resources :channels, only: %i[index show new create] do
       resources :messages, only: %i[index create]
     end

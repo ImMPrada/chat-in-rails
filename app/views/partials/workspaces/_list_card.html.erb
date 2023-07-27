@@ -1,7 +1,9 @@
-<div class="text-white font-sans text-base">
+<div class="flex gap-2 w-full text-white font-sans text-base relative" 
+     id=<%= "#{dom_id(workspace)}_invitation" %>
+>
   <a
     href=<%= workspace_path(workspace) %>
-    class="block flex w-ful gap-2 border border-grey py-4 px-4 rounded-lg bg-black hover:border-blue"
+    class="block flex w-full gap-2 border border-grey py-4 px-4 rounded-lg bg-black hover:border-blue"
     data-turbo="false"
   >
     <img
@@ -13,4 +15,23 @@
       <%= workspace.name %>
     </span>
   </a>
+  <% if policy(workspace).create_invitation? %>
+    <a
+      href=<%= workspace_invitations_path(workspace) %>
+      class="block
+             flex
+             justify-center
+             items-center
+             border
+             border-grey
+             p-4
+             rounded-lg
+             bg-black
+             hover:border-blue
+             fill-white"
+      data-turbo-method="post"
+    >
+      <%= render(Primer::Beta::Octicon.new(:"person-add", size: :medium)) %>
+    </a>
+  <% end %>
 </div>

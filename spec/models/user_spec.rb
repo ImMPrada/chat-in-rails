@@ -31,6 +31,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:channel_users).dependent(:destroy) }
     it { is_expected.to have_many(:workspaces).through(:workspace_users) }
     it { is_expected.to have_many(:roles).through(:workspace_users) }
+    it { is_expected.to have_many(:invitations).dependent(:destroy).with_foreign_key(:receiver_id) }
   end
 
   describe '#owner?' do

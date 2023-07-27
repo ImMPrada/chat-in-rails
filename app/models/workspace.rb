@@ -12,6 +12,7 @@ class Workspace < ApplicationRecord
   has_many :workspace_users, dependent: :destroy
   has_many :users, through: :workspace_users
   has_many :channels, dependent: :destroy
+  has_many :invitations, dependent: :destroy
 
   private
 
