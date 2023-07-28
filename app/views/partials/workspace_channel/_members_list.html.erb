@@ -58,9 +58,15 @@
       MEMBERS
     </h3>
     <% if policy(@workspace).create_invitation? %>
-      <div class="bg-black h-6 w-6 text-white hover:cursor-pointer">
-        +
-      </div>
+      <a class="block
+                bg-black
+                h-6
+                w-6
+                fill-white
+                hover:cursor-pointer"
+      >
+        <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
+      </a>
     <% end %>
   </div>
 </div>

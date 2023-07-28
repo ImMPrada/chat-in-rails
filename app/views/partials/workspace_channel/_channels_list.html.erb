@@ -22,7 +22,7 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <% if can?(workspace, :create, Channel) %>
+    <% if policy(workspace).add_channel? %>
       <%= link_to(
         "+",
         new_workspace_channel_path(workspace),
