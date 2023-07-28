@@ -11,8 +11,19 @@ module Members
         'workspace_channel',
         {
           state: 'MEMBER_ADDED',
-          containers: ["channel_#{channel.id}_members_list"],
+          container: "channel_#{channel.id}_members_list",
           body: build_channel_member_card
+        }
+      )
+    end
+
+    def boradcast_to_channel_members_list_remove_member
+      WorkspaceChannel.broadcast_to(
+        'workspace_channel',
+        {
+          state: 'MEMBER_REMOVED',
+          container: "channel_#{channel.id}_members_list",
+          body: "user_#{current_user.id}_user_#{member.id}_member_card"
         }
       )
     end

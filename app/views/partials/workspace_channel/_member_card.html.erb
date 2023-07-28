@@ -1,4 +1,6 @@
-<div class="flex w-full justify-between items-center">
+<div class="flex w-full justify-between items-center"
+  id=<%="#{dom_id(user)}_#{dom_id(member)}_member_card"%>
+>
   <a
     class="block w-full flex relative gap-7 justify-start"
     href=<%= workspace_user_path(workspace, member) %>
@@ -18,7 +20,12 @@
 
   <% if policy(workspace).remove_member_from_channel?(channel, member) %>
     <div class="flex gap-2">
-      <a class="fill-white hover:cursor-pointer hover:fill-red">
+      <a class="fill-white
+                hover:cursor-pointer
+                hover:fill-red"
+        href=<%= workspace_channel_member_path(workspace, channel, member) %>
+        data-turbo-method="delete"
+      >
         <%= render(Primer::Beta::Octicon.new(:"diff-removed", size: :small)) %>
       </a>
     </div>

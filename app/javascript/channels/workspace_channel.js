@@ -2,7 +2,6 @@ import consumer from "channels/consumer"
 
 consumer.subscriptions.create('WorkspaceChannel', {
   connected() {
-    console.log('connected')
   },
 
   disconnected() {
@@ -10,10 +9,20 @@ consumer.subscriptions.create('WorkspaceChannel', {
   },
 
   received(data) {
-    console.log(data)
-    if(data.state === 'MEMBER_ADDED') { return this.addMemberToChannelMembersList(data.containers, data.body) }
+    if(data.state === 'MEMBER_ADDED') { return this.addMemberToChannelMembersList(data.container, data.body) }
+    if(data.state === 'MEMBER_REMOVED') { return this.removeMemberFromChannelMembersList(data.container, data.body) }
 
     this.addMessageToChat(data.containers, data.body)
+  },
+
+  removeMemberFromChannelMembersList(container, memberCardId) {
+    const targetContainer = document.getElementById(container)
+    if (!targetContainer) return
+
+    const memberCard = document.getElementById(memberCardId)
+    if (!memberCard) return
+
+    targetContainer.removeChild(memberCard)
   },
 
   addMemberToChannelMembersList(container, memberCard) {
