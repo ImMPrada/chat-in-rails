@@ -1,0 +1,53 @@
+<%=  turbo_frame_tag(
+    "modal",
+    class: ""
+  ) do %>
+  <div class="container
+              absolute
+              top-0
+              left-0
+              z-50
+              bg-grey
+              bg-opacity-75
+              h-screen
+              min-w-full
+              flex
+              flex-col
+              justify-center
+              items-center
+              p-4"
+  >
+    <div class="flex flex-col gap-4 max-h-full w-full md:w-[600px] p-2 md:p-8 bg-black rounded-3xl text-white">
+      <div class="flex flex-col w-full mx-2 p-2 md:p-4 overflow-y-auto">
+        <% @available_users.each do |user| %>
+          <div class="block
+                      flex
+                      w-full
+                      justify-between
+                      items-center
+                      m-4"
+            id=<%= "#{dom_id(user)}_member_to_add" %>
+          >
+            <div class="flex gap-2">
+              <img
+                src=<%= user.avatar_url %>
+                class="block w-10 h-10 rounded-lg self-center"
+              >
+              <span class="block self-center text-noto-18-700 text-grey-soft">
+                <%= user.username %>
+              </span>
+            </div>
+            <a class="fill-white
+                      block
+                      hover:cursor-pointer"
+              href=<%= workspace_channel_members_path(workspace_id: @workspace.id, channel_id: @channel.id, user_id: user.id) %>
+              data-turbo-method="post"
+            >
+              <%= render(Primer::Beta::Octicon.new(:"person-add", size: :medium)) %>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

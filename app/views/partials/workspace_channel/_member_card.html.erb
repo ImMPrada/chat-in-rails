@@ -1,0 +1,32 @@
+<div class="flex w-full justify-between items-center">
+  <a
+    class="block w-full flex relative gap-7 justify-start"
+    href=<%= workspace_user_path(workspace, member) %>
+    data-turbo-frame="tool_sidebar"
+    data-turbo-frame-loader="eager"
+    data-controller="membercard"
+    data-action="click->membercard#remove_new_message_signal"
+  >
+    <img
+      src=<%= member.avatar_url %>
+      class="block w-10 h-10 rounded-lg self-center"
+    >
+    <span class="block self-center text-noto-18-700 text-grey-soft">
+      <%= member.username %>
+    </span>
+  </a>
+
+  <% if policy(workspace).remove_member_from_channel?(channel, member) %>
+    <div class="flex gap-2">
+      <a class="fill-white hover:cursor-pointer hover:fill-red">
+        <%= render(Primer::Beta::Octicon.new(:"diff-removed", size: :small)) %>
+      </a>
+    </div>
+  <% end %>
+
+  <div
+    class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
+    id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
+    data-membercard-target = "newMessageSignal"
+  ></div>
+</div>

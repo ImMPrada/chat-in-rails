@@ -11,11 +11,19 @@ class WorkspacePolicy < ApplicationPolicy
     user.admin?(workspace)
   end
 
-  def add_member?
+  def add_member?(channel)
+    return false if channel.name == 'general'
+
     user.admin?(workspace)
   end
 
   def add_channel?
+    user.admin?(workspace)
+  end
+
+  def remove_member_from_channel?(channel, member)
+    return false if (channel.name == 'general') || @user == member
+
     user.admin?(workspace)
   end
 

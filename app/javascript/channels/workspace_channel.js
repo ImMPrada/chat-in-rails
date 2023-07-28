@@ -2,6 +2,7 @@ import consumer from "channels/consumer"
 
 consumer.subscriptions.create('WorkspaceChannel', {
   connected() {
+    console.log('connected')
   },
 
   disconnected() {
@@ -9,7 +10,18 @@ consumer.subscriptions.create('WorkspaceChannel', {
   },
 
   received(data) {
+    console.log(data)
+    if(data.state === 'MEMBER_ADDED') { return this.addMemberToChannelMembersList(data.containers, data.body) }
+
     this.addMessageToChat(data.containers, data.body)
+  },
+
+  addMemberToChannelMembersList(container, memberCard) {
+    const targetContainer = document.getElementById(container)
+    if (!targetContainer) return
+
+    targetContainer.insertAdjacentHTML('beforeend', memberCard)
+    targetContainer.scrollTop = targetContainer.scrollHeight
   },
 
   addMessageToChat(containersIdsPrefix, message) {
