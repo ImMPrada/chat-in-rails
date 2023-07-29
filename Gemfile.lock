@@ -124,6 +124,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hiredis (0.6.3)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.2.1)
@@ -351,6 +352,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   guard-rspec
+  hiredis
   importmap-rails
   jbuilder
   letter_opener

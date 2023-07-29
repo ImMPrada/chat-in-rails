@@ -23,7 +23,7 @@ RSpec.describe Invitations::Registrar do
   
       it 'deactivates invitation' do
         registrar.commit
-        expect(invitation.active?).to be false
+        expect(invitation.active).to be false
       end
   
       it 'returns true' do
