@@ -28,7 +28,7 @@ class InvitationsController < ApplicationController
 
   def active_invitation
     current_invitation = workspace_invitation
-    return current_invitation if current_invitation&.active?
+    return current_invitation if current_invitation&.active
 
     invitation_creator = Invitations::Creator.new(workspace, current_user)
     invitation_creator.commit
