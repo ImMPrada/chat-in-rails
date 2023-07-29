@@ -1,13 +1,13 @@
-<div class="flex w-full justify-between items-center"
+<div class="flex w-full justify-between items-center relative"
   id=<%="#{dom_id(user)}_#{dom_id(member)}_member_card"%>
+  data-controller="membercard"
+  data-membercard-optionslistid-value=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
 >
   <a
-    class="block w-full flex relative gap-7 justify-start"
+    class="block w-full flex gap-7 justify-start"
     href=<%= workspace_user_path(workspace, member) %>
     data-turbo-frame="tool_sidebar"
     data-turbo-frame-loader="eager"
-    data-controller="membercard"
-    data-action="click->membercard#remove_new_message_signal"
   >
     <img
       src=<%= member.avatar_url %>
@@ -18,22 +18,40 @@
     </span>
   </a>
 
-  <% if policy(workspace).remove_member_from_channel?(channel, member) %>
-    <div class="flex gap-2">
-      <a class="fill-white
-                hover:cursor-pointer
-                hover:fill-red"
-        href=<%= workspace_channel_member_path(workspace, channel, member) %>
-        data-turbo-method="delete"
-      >
-        <%= render(Primer::Beta::Octicon.new(:"diff-removed", size: :small)) %>
-      </a>
-    </div>
-  <% end %>
+  <button class="block
+                fill-white"
+    data-action="click->membercard#showOptions"
+  >
+    <%= render(Primer::Beta::Octicon.new(:"kebab-horizontal", size: :medium)) %>
+  </button>
 
+  <div
+    class="w-full
+          h-full
+          absolute
+          z-10
+          bg-gradient-to-l from-black to-transparent
+          flex
+          justify-end
+          items-center
+          fill-white
+          py-2
+          gap-4
+          hidden"
+    id=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
+  >
+    <%= render(
+      partial: 'partials/workspace_channel/member_card_options',
+      locals: {
+        workspace:,
+        member:,
+        user:,
+        channel:,
+      }
+    ) %>
+  </div>
   <div
     class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
     id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
-    data-membercard-target = "newMessageSignal"
   ></div>
 </div>

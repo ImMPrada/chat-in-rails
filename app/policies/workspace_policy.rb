@@ -21,6 +21,10 @@ class WorkspacePolicy < ApplicationPolicy
     user.admin?(workspace)
   end
 
+  def modify_member_role?(member)
+    user.owner?(workspace) && user != member
+  end
+
   def remove_member_from_channel?(channel, member)
     return false if (channel.name == 'general') || @user == member
 
