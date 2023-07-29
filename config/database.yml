@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: chat_in_rails_production
-  username: chat_in_rails
-  password: <%= ENV["CHAT_IN_RAILS_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

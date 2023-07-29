@@ -7,7 +7,7 @@
   </div>
   <%= form.text_field(
     model_field,
-    placeholder: placeholder || Faker::Internet.username,
+    placeholder: placeholder,
     class: "field-input #{ resource.errors.messages[model_field].first ? 'border-red' : ''}"
   ) %>
 </div>

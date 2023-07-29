@@ -8,7 +8,7 @@
   <%= form.email_field(
     model_field,
     autocomplete: "email",
-    placeholder: placeholder || Faker::Internet.email,
+    placeholder: placeholder,
     class: "field-input #{ resource.errors.messages[model_field].first ? 'border-red' : ''}"
   ) %>
 </div>
