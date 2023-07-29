@@ -20,13 +20,7 @@ class User < ApplicationRecord
   has_many :workspaces, through: :workspace_users
   has_many :roles, through: :workspace_users
   has_many :channel_users, dependent: :destroy
-
-  def admin?(workspace)
-    workspace_user = WorkspaceUser.find_by(user: self, workspace:)
-    return false unless workspace_user
-
-    workspace_user.role.admin?
-  end
+  has_many :invitations, dependent: :destroy, foreign_key: :receiver_id
 
   def owner?(workspace)
     workspace_user = WorkspaceUser.find_by(user: self, workspace:)
@@ -35,11 +29,18 @@ class User < ApplicationRecord
     workspace_user.role.owner?
   end
 
+  def admin?(workspace)
+    workspace_user = WorkspaceUser.find_by(user: self, workspace:)
+    return false unless workspace_user
+
+    workspace_user.role.admin? || workspace_user.role.owner?
+  end
+
   def member?(workspace)
     workspace_user = WorkspaceUser.find_by(user: self, workspace:)
     return false unless workspace_user
 
-    workspace_user.role.member?
+    workspace_user.role.member? || workspace_user.role.admin? || workspace_user.role.owner?
   end
 
   def destination_path

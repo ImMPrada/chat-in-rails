@@ -12,6 +12,8 @@ eagerLoadControllersFrom("controllers", application)
 
 import MemberCardController from "./membercard_controller"
 import NewMessageFormController from "./new_message_form_controller"
+import InvitationUrl from "./invitation_url_controller"
 
 application.register("membercard", MemberCardController)
 application.register("new_message_form", NewMessageFormController)
+application.register("invitation-url", InvitationUrl)
