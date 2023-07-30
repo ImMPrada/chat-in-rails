@@ -49,4 +49,11 @@
   .text-noto-12-600 {
     @apply font-sans text-xs font-midbold leading-normal tracking-tighter
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
 }
