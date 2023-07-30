@@ -22,17 +22,15 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <% if can?(workspace, :create, Channel) %>
-      <%= link_to(
-        "+",
-        new_workspace_channel_path(workspace),
-        data: {
-          turbo_frame: "modal",
-          turbo_frame_loading: "eager"
-        },
-        class: "block w-6 h-6 bg-black-soft text-white text-center"
-      ) %>
-    <% end %>
+    <%= link_to(
+      "+",
+      new_workspace_channel_path(workspace),
+      data: {
+        turbo_frame: "modal",
+        turbo_frame_loading: "eager"
+      },
+      class: "block w-6 h-6 bg-black-soft text-white text-center"
+    ) %>
   </div>
 
   <form class="block flex flex-col pt-5 pr-5 pl-8 mb-8" data-turbo="false" accept-charset="UTF-8">
