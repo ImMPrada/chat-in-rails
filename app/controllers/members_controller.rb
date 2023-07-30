@@ -18,7 +18,7 @@ class MembersController < ApplicationController
 
   def destroy
     @member = User.find(params[:id])
-    channel_user = ChannelUser.find_by(channel: channel, user: @member)
+    channel_user = ChannelUser.find_by(channel:, user: @member)
     broadcaster = Members::Broadcaster.new(channel_user, current_user, self)
     return unless channel_user.destroy
 
