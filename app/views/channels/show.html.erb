@@ -1,8 +1,19 @@
 <div id="channel_sidebar"
-      class="w-1/5
+      class="w-full
+             bg-black-dark
+             bg-opacity-75
+             xl:w-1/5
              h-full
+             absolute
+             xl:static
+             max-xl:hidden
+             max-xl:z-40
+             top-0
+             left-0
              grid
-             grid-rows-[auto,1fr,75px]"
+             grid-rows-[auto,1fr,75px]
+             grid-cols-[1fr,auto]
+             xl:grid-cols-[full]"
 >
   <%= render(
     partial: 'partials/workspace_channel/members_list',
@@ -13,9 +24,20 @@
       channel_members: @channel_members
     }
   ) %>
+  <div class="xl:hidden
+              m-2
+              sm:m-4
+              h-fit
+              fill-white
+              hover:cursor-pointer"
+    data-controller="channelSidebar"
+    data-action="click->channelSidebar#close"
+  >
+    <%= render(Primer::Beta::Octicon.new(:x, size: :medium)) %>
+  </div>
 </div>
 
-<div class="w-4/5 flex">
+<div class="w-full xl:w-4/5 flex">
   <div class="flex-grow h-full grid grid-rows-[70px,1fr,auto]">
     <div class="flex
                 justify-start
@@ -29,6 +51,16 @@
                 w-full
                 row-start-1"
     >
+      <div class="xl:hidden
+                  h-fit
+                  w-fit
+                  rounded-sm
+                  fill-white"
+        data-controller="channelSidebar"
+        data-action="click->channelSidebar#open"
+      >
+        <%= render(Primer::Beta::Octicon.new(:"three-bars", size: :medium)) %>
+      </div>
       <h2 class="text-white text-noto-18-700">
         <%= @channel.name.upcase %>
       </h2>
@@ -41,9 +73,10 @@
                 row-start-2
                 bg-black-soft
                 overflow-y-auto
-                pt-14
-                pb-20
-                px-16"
+                py-4
+                sm:pt-14
+                sm:pb-20
+                sm:px-16"
       id=<%= "#{dom_id(@channel)}_messages" %>
     >
 

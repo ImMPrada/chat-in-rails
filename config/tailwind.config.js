@@ -9,12 +9,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
       fontFamily: {
         sans: ['Noto Sans', 'sans-serif'],
       },
       fontSize: {
         xs: '0.75rem',
-        sm: '0.875rem',
+        xl: '0.875rem',
         base: '1rem',    // Equivalent to 16px (default base font size)
         lg: '1.125rem',
       },

@@ -8,7 +8,9 @@
             flex-col
             with-shadow
             w-full
-            bg-black"
+            bg-black
+            row-start-1
+            col-start-1"
 >
   <div class="flex
               justify-start
@@ -21,10 +23,10 @@
               h-[60px]"
   >
     <a
-      class="block w-6 h-6 text-white text-center"
+      class="block w-6 h-6 text-white text-center fill-white"
       href=<%= workspace_channels_path(workspace) %>
     >
-      <
+      <%= render(Primer::Beta::Octicon.new(:"chevron-left", size: :medium)) %>
     </a>
     <h2 class="text-white text-noto-18-700">All channels</h2>
   </div>
@@ -98,7 +100,18 @@
   <% end %>
 </div>
 
-<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full">
+<div class="w-full
+            flex
+            justify-between
+            py-4
+            pr-5
+            pl-8
+            with-shadow
+            bg-black-dark
+            h-full
+            row-start-3
+            col-start-1"
+>
   <%= render(
     partial: 'partials/workspace_channel/current_user_bar',
     locals: {
