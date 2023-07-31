@@ -8,7 +8,9 @@
             flex-col
             with-shadow
             w-full
-            bg-black"
+            bg-black
+            row-start-1
+            col-start-1"
 >
   <div class="flex
               justify-start
@@ -21,10 +23,10 @@
               h-[60px]"
   >
     <a
-      class="block w-6 h-6 text-white text-center"
+      class="block w-6 h-6 text-white text-center fill-white"
       href=<%= workspace_channels_path(workspace) %>
     >
-      <
+      <%= render(Primer::Beta::Octicon.new(:"chevron-left", size: :medium)) %>
     </a>
     <h2 class="text-white text-noto-18-700">All channels</h2>
   </div>
@@ -73,7 +75,9 @@
             pr-5
             pl-8
             bg-black
-            overflow-y-auto"
+            overflow-y-auto
+            row-start-2
+            col-start-1"
 >
   <% channel_members.each do |member| %>
     <a
@@ -81,8 +85,8 @@
       href=<%= workspace_user_path(workspace, member) %>
       data-turbo-frame="tool_sidebar"
       data-turbo-frame-loader="eager"
-      data-controller="membercard"
-      data-action="click->membercard#remove_new_message_signal"
+      data-controller="membercard channelSidebar"
+      data-action="click->membercard#remove_new_message_signal click->channelSidebar#close"
     >
       <img
         src=<%= member.avatar_url %>
@@ -93,7 +97,7 @@
       </span>
 
       <div
-        class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
+        class="absolute h-2 w-2 bg-red rounded-full hidden"
         id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
         data-membercard-target = "newMessageSignal"
       ></div>
@@ -101,7 +105,18 @@
   <% end %>
 </div>
 
-<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full">
+<div class="w-full
+            flex
+            justify-between
+            py-4
+            pr-5
+            pl-8
+            with-shadow
+            bg-black-dark
+            h-full
+            row-start-3
+            col-start-1"
+>
   <%= render(
     partial: 'partials/workspace_channel/current_user_bar',
     locals: {

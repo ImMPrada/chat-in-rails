@@ -10,6 +10,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag("primer_view_components") %>
   </head>
 
   <body class="bg-black">
@@ -17,9 +18,9 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
-    <div class="container min-w-full h-screen flex bg-black-soft">
+    <div class="container min-w-full h-screen flex bg-black-soft" data-controller="loading">
       <%= yield %>
     </div>
-    <%= turbo_frame_tag "modal" %>
+    <%= turbo_frame_tag "new-channel-modal" %>
   </body>
 </html>

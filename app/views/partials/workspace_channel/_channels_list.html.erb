@@ -8,7 +8,9 @@
             flex-col
             with-shadow
             w-full
-            bg-black"
+            bg-black
+            row-start-1
+            col-start-1"
 >
   <div class="flex
               justify-between
@@ -22,15 +24,23 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <%= link_to(
-      "+",
-      new_workspace_channel_path(workspace),
-      data: {
-        turbo_frame: "modal",
-        turbo_frame_loading: "eager"
-      },
-      class: "block w-6 h-6 bg-black-soft text-white text-center"
-    ) %>
+    <% if can?(workspace, :create, Channel) %>
+      <a class="block
+                w-6
+                h-6
+                bg-black-soft
+                text-white
+                text-center
+                fill-white"
+        data-turbo-frame="new-channel-modal"
+        data-turbo-frame-loading="eager"
+        data-action="click->loading#start"
+        data-loading-turbotarget-value="new-channel-modal"
+        href=<%= new_workspace_channel_path(workspace) %>
+      >
+        <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
+      </a>
+    <% end %>
   </div>
 
   <form class="block flex flex-col pt-5 pr-5 pl-8 mb-8" data-turbo="false" accept-charset="UTF-8">
@@ -76,7 +86,9 @@
             pr-5
             pl-8
             bg-black
-            overflow-y-auto"
+            overflow-y-auto
+            row-start-2
+            col-start-1"
 >
   <% channels.each do |workspace_channel| %> 
     <a
@@ -94,7 +106,7 @@
   <% end %>
 </div>
 
-<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full">
+<div class="w-full flex justify-between py-4 pr-5 pl-8 with-shadow bg-black-dark h-full row-start-3 col-start-1">
   <%= render(
     partial: 'partials/workspace_channel/current_user_bar',
     locals: {
@@ -102,4 +114,17 @@
     }
   ) %>
 </div>
+
+<div class="xl:hidden
+              m-4
+              h-fit
+              fill-white
+              row-start-1
+              col-start-2
+              hover:cursor-pointer"
+    data-controller="channelSidebar"
+    data-action="click->channelSidebar#close"
+  >
+    <%= render(Primer::Beta::Octicon.new(:x, size: :medium)) %>
+  </div>
 
