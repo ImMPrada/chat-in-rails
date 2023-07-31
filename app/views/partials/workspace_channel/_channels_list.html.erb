@@ -24,23 +24,21 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <% if can?(workspace, :create, Channel) %>
-      <a class="block
-                w-6
-                h-6
-                bg-black-soft
-                text-white
-                text-center
-                fill-white"
-        data-turbo-frame="new-channel-modal"
-        data-turbo-frame-loading="eager"
-        data-action="click->loading#start"
-        data-loading-turbotarget-value="new-channel-modal"
-        href=<%= new_workspace_channel_path(workspace) %>
-      >
-        <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
-      </a>
-    <% end %>
+    <a class="block
+              w-6
+              h-6
+              bg-black-soft
+              text-white
+              text-center
+              fill-white"
+      data-turbo-frame="new-channel-modal"
+      data-turbo-frame-loading="eager"
+      data-action="click->loading#start"
+      data-loading-turbotarget-value="new-channel-modal"
+      href=<%= new_workspace_channel_path(workspace) %>
+    >
+      <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
+    </a>
   </div>
 
   <form class="block flex flex-col pt-5 pr-5 pl-8 mb-8" data-turbo="false" accept-charset="UTF-8">
