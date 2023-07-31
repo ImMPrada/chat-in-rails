@@ -9,8 +9,15 @@ consumer.subscriptions.create('WorkspaceChannel', {
   },
 
   received(data) {
-    if(data.state === 'MEMBER_ADDED') { return this.addMemberToChannelMembersList(data.container, data.body) }
-    if(data.state === 'MEMBER_REMOVED') { return this.removeMemberFromChannelMembersList(data.container, data.body) }
+    if(data.state === 'MEMBER_ADDED') { 
+      return this.addMemberToChannelMembersList(data.container, data.body)
+    }
+    if(data.state === 'MEMBER_REMOVED') {
+      return this.removeMemberFromChannelMembersList(data.container, data.body)
+    }
+    if(data.state === 'MEMBER_UPDATED') {
+      return this.updateMemberInChannelMembersList(data.container, data.body)
+    }
 
     this.addMessageToChat(data.containers, data.body)
   },
@@ -31,6 +38,15 @@ consumer.subscriptions.create('WorkspaceChannel', {
 
     targetContainer.insertAdjacentHTML('beforeend', memberCard)
     targetContainer.scrollTop = targetContainer.scrollHeight
+  },
+
+  updateMemberInChannelMembersList(container, membersCards) {
+    const targetContainer = document.getElementById(container)
+    if (!targetContainer) return
+    
+    const temporalDiv = document.createElement('div')
+    temporalDiv.innerHTML = membersCards
+    targetContainer.replaceWith(temporalDiv.children[0])
   },
 
   addMessageToChat(containersIdsPrefix, message) {

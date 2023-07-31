@@ -24,11 +24,14 @@
 
 <% if policy(workspace).modify_member_role?(member) %>
   <div class="flex gap-2">
-    <a class="fill-white
-              hover:cursor-pointer
-              hover:fill-red"
-      href=nil
-      data-turbo-method="delete"
+    <a class=<%="#{member.admin?(workspace) ? 'fill-green' : 'fill-white'}
+              hover:cursor-pointer"%>
+      href=<%= workspace_channel_member_path(
+        workspace,
+        channel,
+        member
+      ) %>
+      data-turbo-method="patch"
     >
       <%= render(Primer::Beta::Octicon.new(:copilot, size: :medium)) %>
     </a>

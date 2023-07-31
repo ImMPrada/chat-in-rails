@@ -8,6 +8,7 @@
     href=<%= workspace_user_path(workspace, member) %>
     data-turbo-frame="tool_sidebar"
     data-turbo-frame-loader="eager"
+    data-action="click->membercard#hideSidebar"
   >
     <img
       src=<%= member.avatar_url %>

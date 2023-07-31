@@ -76,29 +76,15 @@
   </div>
 </div>
 
-<div class="w-full
-            flex
-            flex-col
-            gap-5
-            pb-6
-            pr-5
-            pl-8
-            bg-black
-            overflow-y-auto"
-  id=<%= "#{dom_id(workspace_channel)}_members_list" %>
->
-  <% channel_members.each do |member| %>
-    <%= render(
-      partial: 'partials/workspace_channel/member_card',
-      locals: {
-        workspace:,
-        member:,
-        user:,
-        channel: workspace_channel,
-      }
-    ) %>
-  <% end %>
-</div>
+<%= render(
+  partial: 'partials/workspace_channel/members',
+  locals: {
+    workspace:,
+    channel_members:,
+    user:,
+    channel: workspace_channel,
+  }
+) %>
 
 <div class="w-full
             flex

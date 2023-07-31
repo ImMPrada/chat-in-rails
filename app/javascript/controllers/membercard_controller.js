@@ -53,4 +53,9 @@ export default class extends Controller {
 
     optionsList.classList.add('hidden')
   }
+
+  hideSidebar() {
+    const toolBar = document.getElementById('channel_sidebar')
+    toolBar.classList.add('max-xl:hidden')
+  }
 }

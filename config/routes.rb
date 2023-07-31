@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     resources :channels, only: %i[index show new create] do
       resources :messages, only: %i[index create]
-      resources :members, only: %i[new create destroy]
+      resources :members, only: %i[new create destroy update]
     end
 
     resources :users, only: %i[show] do

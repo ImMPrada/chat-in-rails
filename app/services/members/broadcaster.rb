@@ -28,6 +28,21 @@ module Members
       )
     end
 
+    def boradcast_to_channel_members_list_update_member_role
+      workspace.channels.each do |channel|
+        @channel = channel
+
+        WorkspaceChannel.broadcast_to(
+          'workspace_channel',
+          {
+            state: 'MEMBER_UPDATED',
+            container: "channel_#{channel.id}_members_list",
+            body: build_channel_members_list
+          }
+        )
+      end
+    end
+
     private
 
     attr_reader :channel_user, :controller, :current_user
@@ -38,6 +53,18 @@ module Members
         locals: {
           workspace:,
           member:,
+          user: current_user,
+          channel:
+        }
+      )
+    end
+
+    def build_channel_members_list
+      controller.render_to_string(
+        partial: 'partials/workspace_channel/members',
+        locals: {
+          workspace:,
+          channel_members: channel.users,
           user: current_user,
           channel:
         }
