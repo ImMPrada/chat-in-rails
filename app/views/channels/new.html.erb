@@ -17,6 +17,9 @@
               justify-center
               items-center
               p-4"
+    data-controller="new-channel-modal"
+    data-new-channel-modal-target="newChannelWindow"
+    data-action="keydown.esc->new-channel-modal#close"
   >
     <div class="w-full md:w-[600px] p-4 md:p-8 bg-black rounded-xl sm:rounded-3xl">
       <%=
@@ -48,6 +51,36 @@
             class: "field-input text-noto-18-500"
           ) %>
 
+          <input type="hidden"
+            name="channel[public]"
+            value=<%= @channel.public %>
+            data-new-channel-modal-target="publicInput"
+          >
+
+          <div
+            for="channel_public"
+            class="block
+              flex
+              w-full
+              border
+              fill-white"
+          >
+            <button type="button"
+              class="block flex gap-4 justify-start text-white hidden"
+              data-new-channel-modal-target="publicButton"
+              data-action="click->new-channel-modal#makeItPublic"
+            >
+              <%= render(Primer::Beta::Octicon.new(:unlock, size: :medium)) %> Make it public
+            </button>
+            <button type="button"
+              class="block flex gap-4 justify-start text-white"
+              data-new-channel-modal-target="privateButton"
+              data-action="click->new-channel-modal#makeItPrivate"
+            >
+              <%= render(Primer::Beta::Octicon.new(:lock, size: :medium)) %> Make it private
+            </button>
+          </div>
+
           <div class="flex justify-between">
             <%= form.submit(
               "save",
@@ -57,7 +90,10 @@
               "cancel",
               workspace_path(@workspace),
               class: "block btn",
-              data: { turbo: false }
+              data: {
+                turbo: false,
+                action: "click->new-channel-modal#close"
+              }
             ) %>
           </div>
       <% end %>

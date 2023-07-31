@@ -30,8 +30,7 @@ class ChannelsController < ApplicationController
   def create
     channel_creator = Channels::Creator.new(channel_params,
                                             current_user,
-                                            workspace,
-                                            current_user.id)
+                                            workspace)
     channel = channel_creator.commit
     return succeed_channel_creation(channel) if channel
 
@@ -41,7 +40,7 @@ class ChannelsController < ApplicationController
   private
 
   def channel_params
-    params.require(:channel).permit(:name, :description)
+    params.require(:channel).permit(:name, :description, :public)
   end
 
   def workspace
