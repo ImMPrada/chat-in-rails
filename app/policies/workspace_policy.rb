@@ -26,7 +26,7 @@ class WorkspacePolicy < ApplicationPolicy
   end
 
   def remove_member_from_channel?(channel, member)
-    return false if (channel.name == 'general') || @user == member
+    return false if channel.public || @user == member
 
     user.admin?(workspace)
   end
