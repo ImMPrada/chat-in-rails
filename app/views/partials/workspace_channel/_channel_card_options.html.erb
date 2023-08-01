@@ -1,11 +1,17 @@
 <% if !channel.public %>
-  <a class="block fill-white">
+  <a class="block fill-white"
+    data-turbo-method="patch"
+    href=<%= workspace_channel_path(workspace, channel, channel: { public: true }) %>
+  >
     <%= render(Primer::Beta::Octicon.new(:unlock, size: :medium)) %>
   </a>
 <% end %>
 
 <% if channel.public %>
-  <a class="block fill-white">
+  <a class="block fill-white"
+    data-turbo-method="patch"
+    href=<%= workspace_channel_path(workspace, channel, channel: { public: false }) %>
+  >
     <%= render(Primer::Beta::Octicon.new(:lock, size: :medium)) %>
   </a>
 <% end %>

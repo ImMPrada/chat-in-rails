@@ -21,8 +21,21 @@ consumer.subscriptions.create('WorkspaceChannel', {
     if(data.state === 'CHANNEL_REMOVED') {
       return this.removeChannelFromChannelsList(data.container)
     }
+    if(data.state === 'CHANNEL_CARD_UPDATED') {
+      return this.updateChannelCard(data.container, data.body)
+    }
+
 
     this.addMessageToChat(data.containers, data.body)
+  },
+
+  updateChannelCard(container, channelCard) {
+    const targetContainer = document.getElementById(container)
+    if (!targetContainer) return
+
+    const temporalDiv = document.createElement('div')
+    temporalDiv.innerHTML = channelCard
+    targetContainer.replaceWith(temporalDiv.children[0])
   },
 
   removeChannelFromChannelsList(container) {
