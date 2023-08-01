@@ -18,8 +18,18 @@ consumer.subscriptions.create('WorkspaceChannel', {
     if(data.state === 'MEMBER_UPDATED') {
       return this.updateMemberInChannelMembersList(data.container, data.body)
     }
+    if(data.state === 'CHANNEL_REMOVED') {
+      return this.removeChannelFromChannelsList(data.container)
+    }
 
     this.addMessageToChat(data.containers, data.body)
+  },
+
+  removeChannelFromChannelsList(container) {
+    const targetContainer = document.getElementById(container)
+    if (!targetContainer) return
+
+    targetContainer.remove()
   },
 
   removeMemberFromChannelMembersList(container, memberCardId) {

@@ -31,6 +31,18 @@ class WorkspacePolicy < ApplicationPolicy
     user.admin?(workspace)
   end
 
+  def leave_channel?(channel)
+    return false if channel.public || user.owner?(workspace)
+
+    user.member?(workspace)
+  end
+
+  def delete_channel?(channel)
+    return false if channel.name == 'general'
+
+    user.admin?(workspace)
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

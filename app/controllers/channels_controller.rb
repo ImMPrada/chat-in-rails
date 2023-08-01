@@ -37,6 +37,13 @@ class ChannelsController < ApplicationController
     failed_channel_creation(channel_creator.errors_messages.join(', '))
   end
 
+  def destroy
+    return unless channel.destroy
+
+    broadcaster = Channels::Broadcaster.new(channel, current_user, self)
+    broadcaster.remove_channel_from_channels_list
+  end
+
   private
 
   def channel_params

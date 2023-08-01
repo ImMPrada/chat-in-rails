@@ -1,0 +1,44 @@
+<div class="w-full flex justify-between relative"
+  id=<%="#{dom_id(channel)}_card"%>
+>
+  <a
+    class="block flex gap-3"
+    href=<%= workspace_channel_path(workspace, channel) %>
+  >
+    <img
+      src=<%= channel.avatar_url %>
+      class="block w-11 h-11 rounded-lg self-center"
+    >
+    <span class="block self-center text-noto-18-700 text-white">
+      <%= channel.name.upcase %>
+    </span>
+  </a>
+
+  <button class="fill-white">
+    <%= render(Primer::Beta::Octicon.new(:gear, size: :medium)) %>
+  </button>
+
+  <div
+    class="w-full
+          h-full
+          absolute
+          z-10
+          bg-gradient-to-l from-black to-transparent
+          flex
+          justify-end
+          items-center
+          fill-white
+          py-2
+          gap-4"
+    id=<%="#{dom_id(channel)}_card_options"%>
+  >
+
+    <%= render(
+      partial: 'partials/workspace_channel/channel_card_options',
+      locals: {
+        workspace:,
+        channel:
+      }
+    ) %>
+  </div>
+</div>
