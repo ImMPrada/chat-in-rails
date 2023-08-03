@@ -34,10 +34,16 @@ class WorkspacePolicy < ApplicationPolicy
   def leave_channel?(channel)
     return false if channel.public || user.owner?(workspace)
 
-    user.member?(workspace)
+    channel.users.include?(user)
   end
 
   def delete_channel?(channel)
+    return false if channel.name == 'general'
+
+    user.admin?(workspace)
+  end
+
+  def modify_channel_privacy?(channel)
     return false if channel.name == 'general'
 
     user.admin?(workspace)

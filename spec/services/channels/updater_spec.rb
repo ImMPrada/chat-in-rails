@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Channels::Updater do
-  subject(:updater) { described_class.new(params, current_user, channel) }
+  subject(:updater) { described_class.new(params, channel) }
 
   let(:current_user) { create(:user) }
   let(:workspace) { create(:workspace) }

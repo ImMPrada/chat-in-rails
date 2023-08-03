@@ -14,6 +14,7 @@
   </head>
 
   <body class="bg-black">
+    <%= turbo_stream_from @workspace, "workspace" %>
     <div id="notifications_bar" class="block min-w-full text-center absolute">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>

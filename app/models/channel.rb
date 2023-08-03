@@ -2,6 +2,8 @@ class Channel < ApplicationRecord
   include Destinationable
 
   before_create :add_avatar_url
+  after_destroy :broadcast_destruction
+  after_create_commit :broadcast_new_channel_created
 
   validates :name,
             presence: true,
@@ -24,5 +26,25 @@ class Channel < ApplicationRecord
 
   def add_avatar_url
     self.avatar_url = "https://ui-avatars.com/api/?background=3c393f&color=fff&rounded=false&bold=true&name=#{CGI.escape(name)}"
+  end
+
+  def broadcast_destruction
+    broadcast_remove_to(
+      [workspace, 'workspace'],
+      target: "channel_#{id}_card"
+    )
+  end
+
+  def broadcast_new_channel_created
+    broadcast_append_to(
+      [workspace, 'workspace'],
+      target: 'channels_list',
+      partial: 'partials/workspace_channel/channel_card',
+      locals: {
+        channel: self,
+        workspace:,
+        user: nil
+      }
+    )
   end
 end

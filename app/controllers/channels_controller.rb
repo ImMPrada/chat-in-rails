@@ -8,6 +8,9 @@ class ChannelsController < ApplicationController
     @members = workspace.users
     @channel_members = channel.users
     @messages = channel.messages.order(created_at: :asc)
+  rescue ActiveRecord::RecordNotFound => _e
+    general_channel = workspace.channels.find_by(name: 'general')
+    redirect_to workspace_channel_path(workspace, general_channel)
   end
 
   def index
@@ -41,19 +44,15 @@ class ChannelsController < ApplicationController
     channel_updater = Channels::Updater.new(channel_params,
                                             channel)
     @channel = channel_updater.commit
-    return unless channel
-
-    broadcaster = Channels::Broadcaster.new(channel,
-                                            self)
-    broadcaster.update_channel_from_channels_list
   end
 
   def destroy
-    return unless channel.destroy
+    channel.destroy
+  end
 
-    broadcaster = Channels::Broadcaster.new(channel,
-                                            self)
-    broadcaster.remove_channel_from_channels_list
+  def options
+    @channel = Channel.find(params[:channel_id])
+    workspace
   end
 
   private

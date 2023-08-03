@@ -2,9 +2,8 @@ module Channels
   class Updater
     attr_reader :errors_messages
 
-    def initialize(params, user, channel)
+    def initialize(params, channel)
       @params = params
-      @user = user
       @channel = channel
       @errors_messages = []
     end
@@ -21,7 +20,7 @@ module Channels
 
     private
 
-    attr_reader :params, :user, :channel
+    attr_reader :params, :channel
 
     def update_members
       return if params[:public] == 'false' || channel.public

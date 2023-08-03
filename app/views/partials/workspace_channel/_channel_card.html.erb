@@ -1,4 +1,4 @@
-<div class="w-full flex justify-between relative"
+<div class="w-full flex justify-between relative items-center"
   id=<%="#{dom_id(channel)}_card"%>
 >
   <a
@@ -14,31 +14,34 @@
     </span>
   </a>
 
-  <button class="fill-white">
+  <a class="fill-white"
+    href=<%= workspace_channel_options_path(workspace, channel) %>
+    data-turbo-frame=<%="#{dom_id(channel)}_card_options"%>
+    data-turbo-frame-loading="eager"
+    data-controller="channel-card"
+    data-action="click->channel-card#showOptions"
+    data-channel-card-channel-id-value=<%= channel.id %>
+  >
     <%= render(Primer::Beta::Octicon.new(:gear, size: :medium)) %>
-  </button>
+  </a>
 
-  <div
-    class="w-full
+  <%= turbo_frame_tag(
+    "#{dom_id(channel)}_card_options",
+    class:"w-full
           h-full
           absolute
-          z-10
+          z-50
           bg-gradient-to-l from-black to-transparent
           flex
           justify-end
           items-center
           fill-white
+          hidden
           py-2
-          gap-4"
-    id=<%="#{dom_id(channel)}_card_options"%>
-  >
-
-    <%= render(
-      partial: 'partials/workspace_channel/channel_card_options',
-      locals: {
-        workspace:,
-        channel:
-      }
-    ) %>
-  </div>
+          gap-4",
+    data: {
+      controller: "channel-card",
+      channel_card_channel_id_value: channel.id
+    }
+  ) %>
 </div>
