@@ -22,25 +22,15 @@ module Members
         'workspace_channel',
         {
           state: 'MEMBER_REMOVED',
-          container: "channel_#{channel.id}_members_list",
-          body: "user_#{current_user.id}_user_#{member.id}_member_card"
+          container: "user_#{member.id}_member_card",
+          body: {
+            member_id: member.id,
+            user_id: current_user.id,
+            channel_id: channel.id,
+            redirection_url: controller.workspace_channel_url(workspace, workspace.channels.first)
+          }
         }
       )
-    end
-
-    def boradcast_to_channel_members_list_update_member_role
-      workspace.channels.each do |channel|
-        @channel = channel
-
-        WorkspaceChannel.broadcast_to(
-          'workspace_channel',
-          {
-            state: 'MEMBER_UPDATED',
-            container: "channel_#{channel.id}_members_list",
-            body: build_channel_members_list
-          }
-        )
-      end
     end
 
     private
@@ -53,18 +43,6 @@ module Members
         locals: {
           workspace:,
           member:,
-          user: current_user,
-          channel:
-        }
-      )
-    end
-
-    def build_channel_members_list
-      controller.render_to_string(
-        partial: 'partials/workspace_channel/members',
-        locals: {
-          workspace:,
-          channel_members: channel.users,
           user: current_user,
           channel:
         }

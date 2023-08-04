@@ -27,8 +27,6 @@ class MembersController < ApplicationController
   def update
     @member = User.find(params[:id])
     workspace_user.update(role: toogle_member_role)
-    broadcaster = Members::Broadcaster.new(channel_user, current_user, self)
-    broadcaster.boradcast_to_channel_members_list_update_member_role
   end
 
   def options

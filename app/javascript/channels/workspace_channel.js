@@ -15,44 +15,24 @@ consumer.subscriptions.create('WorkspaceChannel', {
     if(data.state === 'MEMBER_REMOVED') {
       return this.removeMemberFromChannelMembersList(data.container, data.body)
     }
-    if(data.state === 'MEMBER_UPDATED') {
-      return this.updateMemberInChannelMembersList(data.container, data.body)
-    }
-    if(data.state === 'CHANNEL_REMOVED') {
-      return this.removeChannelFromChannelsList(data.container)
-    }
-    if(data.state === 'CHANNEL_CARD_UPDATED') {
-      return this.updateChannelCard(data.container, data.body)
-    }
-
 
     this.addMessageToChat(data.containers, data.body)
   },
 
-  updateChannelCard(container, channelCard) {
+  removeMemberFromChannelMembersList(container, data) {
     const targetContainer = document.getElementById(container)
     if (!targetContainer) return
 
-    const temporalDiv = document.createElement('div')
-    temporalDiv.innerHTML = channelCard
-    targetContainer.replaceWith(temporalDiv.children[0])
-  },
+    const activeChannelId = targetContainer.dataset.channelId
+    const senderId = targetContainer.dataset.senderId
+    const currentUserIsSender = data.member_id == senderId
+    const currentChannelIsUpdating = activeChannelId == data.channel_id
 
-  removeChannelFromChannelsList(container) {
-    const targetContainer = document.getElementById(container)
-    if (!targetContainer) return
+    if((currentUserIsSender || this.globalCurrentUserId() == data.member_id) && currentChannelIsUpdating) {
+      return window.location.href = data.redirect_url
+    }
 
-    targetContainer.remove()
-  },
-
-  removeMemberFromChannelMembersList(container, memberCardId) {
-    const targetContainer = document.getElementById(container)
-    if (!targetContainer) return
-
-    const memberCard = document.getElementById(memberCardId)
-    if (!memberCard) return
-
-    targetContainer.removeChild(memberCard)
+    if(currentChannelIsUpdating) { targetContainer.remove() }
   },
 
   addMemberToChannelMembersList(container, memberCard) {
@@ -61,15 +41,6 @@ consumer.subscriptions.create('WorkspaceChannel', {
 
     targetContainer.insertAdjacentHTML('beforeend', memberCard)
     targetContainer.scrollTop = targetContainer.scrollHeight
-  },
-
-  updateMemberInChannelMembersList(container, membersCards) {
-    const targetContainer = document.getElementById(container)
-    if (!targetContainer) return
-    
-    const temporalDiv = document.createElement('div')
-    temporalDiv.innerHTML = membersCards
-    targetContainer.replaceWith(temporalDiv.children[0])
   },
 
   addMessageToChat(containersIdsPrefix, message) {
@@ -92,5 +63,10 @@ consumer.subscriptions.create('WorkspaceChannel', {
     if (!targetContainer) return
 
     targetContainer.classList.remove('hidden')
+  },
+
+  globalCurrentUserId() {
+    const currentUserElement = document.getElementById('singleton_global_data')
+    currentUserElement.dataset.currentUserId
   }
 });
