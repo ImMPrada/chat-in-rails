@@ -1,7 +1,9 @@
 <div class="flex w-full justify-between items-center relative"
-  id=<%="#{dom_id(user)}_#{dom_id(member)}_member_card"%>
+  id=<%="#{dom_id(member)}_member_card"%>
   data-controller="membercard"
   data-membercard-optionslistid-value=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
+  data-sender-id=<%= user.id %>
+  data-channel-id=<%= channel.id %>
 >
   <a
     class="block w-full flex gap-7 justify-start"
@@ -19,15 +21,21 @@
     </span>
   </a>
 
-  <button class="block
-                fill-white"
-    data-action="click->membercard#showOptions"
+  <a class="block fill-white"
+    href=<%= workspace_channel_member_options_path(workspace, channel, member) %>
+    data-turbo-frame=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
+    data-turbo-frame-loading="eager"
+    data-controller="member-card"
+    data-action="click->member-card#showOptions"
+    data-member-card-member-id-value=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
   >
     <%= render(Primer::Beta::Octicon.new(:"kebab-horizontal", size: :medium)) %>
-  </button>
+  </a>
 
-  <div
-    class="w-full
+
+  <%= turbo_frame_tag(
+    "#{dom_id(user)}_#{dom_id(member)}_options",
+    class:"w-full
           h-full
           absolute
           z-10
@@ -38,19 +46,13 @@
           fill-white
           py-2
           gap-4
-          hidden"
-    id=<%="#{dom_id(user)}_#{dom_id(member)}_options"%>
-  >
-    <%= render(
-      partial: 'partials/workspace_channel/member_card_options',
-      locals: {
-        workspace:,
-        member:,
-        user:,
-        channel:,
-      }
-    ) %>
-  </div>
+          hidden",
+    data: {
+      controller: "member-card",
+      member_card_member_id_value: "#{dom_id(user)}_#{dom_id(member)}_options"
+    }
+  ) %>
+
   <div
     class="absolute h-2 w-2 z-10 bg-red rounded-full hidden"
     id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>

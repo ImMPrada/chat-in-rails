@@ -4,6 +4,7 @@ class Channel < ApplicationRecord
   before_create :add_avatar_url
   after_destroy :broadcast_destruction
   after_create_commit :broadcast_new_channel_created
+  after_update_commit :broadcast_update_to
 
   validates :name,
             presence: true,
@@ -42,8 +43,19 @@ class Channel < ApplicationRecord
       partial: 'partials/workspace_channel/channel_card',
       locals: {
         channel: self,
-        workspace:,
-        user: nil
+        workspace:
+      }
+    )
+  end
+
+  def broadcast_update_to
+    broadcast_replace_to(
+      [workspace, 'workspace'],
+      target: "channel_#{id}_card",
+      partial: 'partials/workspace_channel/channel_card',
+      locals: {
+        channel: self,
+        workspace:
       }
     )
   end

@@ -31,6 +31,13 @@ class MembersController < ApplicationController
     broadcaster.boradcast_to_channel_members_list_update_member_role
   end
 
+  def options
+    @member = User.find(params[:member_id])
+    @user = current_user
+    channel
+    workspace
+  end
+
   private
 
   def channel_user

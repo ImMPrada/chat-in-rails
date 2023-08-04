@@ -23,7 +23,9 @@ Rails.application.routes.draw do
 
     resources :channels, only: %i[index show new create destroy update] do
       resources :messages, only: %i[index create]
-      resources :members, only: %i[new create destroy update]
+      resources :members, only: %i[new create destroy update] do
+        get 'options', to: 'members#options'
+      end
 
       get 'options', to: 'channels#options'
     end
