@@ -1,6 +1,8 @@
 class Channel < ApplicationRecord
   include Destinationable
 
+  BASIC_CHANNEL_NAME = 'general'.freeze
+
   before_create :add_avatar_url
   after_destroy :broadcast_destruction
   after_create_commit :broadcast_new_channel_created

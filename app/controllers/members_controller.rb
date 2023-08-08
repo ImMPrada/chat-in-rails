@@ -1,8 +1,8 @@
 class MembersController < ApplicationController
   def new
-    query = "LEFT JOIN channel_users ON users.id = channel_users.user_id AND channel_users.channel_id = #{channel.id}"
+    query = 'LEFT JOIN channel_users ON users.id = channel_users.user_id AND channel_users.channel_id = ?'
     @available_users = workspace.users
-                                .joins(query)
+                                .joins(query, channel.id)
                                 .where('channel_users.id IS NULL')
                                 .order(:username)
   end

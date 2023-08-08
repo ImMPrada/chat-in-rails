@@ -12,7 +12,7 @@ class WorkspacePolicy < ApplicationPolicy
   end
 
   def add_member?(channel)
-    return false if channel.name == 'general'
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
 
     user.admin?(workspace)
   end
@@ -38,13 +38,13 @@ class WorkspacePolicy < ApplicationPolicy
   end
 
   def delete_channel?(channel)
-    return false if channel.name == 'general'
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
 
     user.admin?(workspace)
   end
 
   def modify_channel_privacy?(channel)
-    return false if channel.name == 'general'
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
 
     user.admin?(workspace)
   end

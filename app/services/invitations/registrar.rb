@@ -24,7 +24,7 @@ module Invitations
     end
 
     def add_user_to_general_workspace_channel
-      channel = workspace.channels.find_by(name: 'general')
+      channel = workspace.channels.find_by(name: Channel::BASIC_CHANNEL_NAME)
       @channel_user = ChannelUser.new(channel:, user:)
     end
 

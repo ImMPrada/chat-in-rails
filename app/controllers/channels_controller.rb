@@ -9,7 +9,7 @@ class ChannelsController < ApplicationController
     @channel_members = channel.users
     @messages = channel.messages.order(created_at: :asc)
   rescue ActiveRecord::RecordNotFound => _e
-    general_channel = workspace.channels.find_by(name: 'general')
+    general_channel = workspace.channels.find_by(name: Channel::BASIC_CHANNEL_NAME)
     redirect_to workspace_channel_path(workspace, general_channel)
   end
 

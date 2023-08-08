@@ -3,6 +3,9 @@
   <head>
     <title>ChatInRails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <% if Rails.env == 'development' %>
+      <%= tag :meta, name: :rails_env, content: Rails.env %>
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
