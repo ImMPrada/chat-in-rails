@@ -1,10 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Channels::Creator do
-  subject(:creator) { described_class.new(params, current_user, workspace, current_user.id) }
+  subject(:creator) { described_class.new(params, current_user, workspace) }
 
   let(:current_user) { create(:user) }
   let(:workspace) { create(:workspace) }
+
+  before do
+    role = Role.create(name: 'owner')
+    WorkspaceUser.create(workspace:, user: current_user, role:)
+  end
 
   describe '#commit' do
     let(:params) { { name: 'test channel' } }

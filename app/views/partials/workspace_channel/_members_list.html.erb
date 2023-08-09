@@ -59,51 +59,32 @@
     <h3 class="text-white text-noto-18-700">
       MEMBERS
     </h3>
-    <% if policy(@workspace).create_invitation? %>
-      <div class="bg-black h-6 w-6 text-white hover:cursor-pointer">
-        +
-      </div>
+    <% if policy(workspace).add_member?(workspace_channel) %>
+      <a class="block
+                bg-black
+                h-6
+                w-6
+                fill-white
+                hover:cursor-pointer"
+        href=<%= new_workspace_channel_member_path(workspace, workspace_channel) %>
+        data-turbo-frame="modal"
+        data-turbo-frame-loader="eager"
+      >
+        <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
+      </a>
     <% end %>
   </div>
 </div>
 
-<div class="w-full
-            flex
-            flex-col
-            gap-5
-            pb-6
-            pr-5
-            pl-8
-            bg-black
-            overflow-y-auto
-            row-start-2
-            col-start-1"
->
-  <% channel_members.each do |member| %>
-    <a
-      class="block flex gap-7 relative"
-      href=<%= workspace_user_path(workspace, member) %>
-      data-turbo-frame="tool_sidebar"
-      data-turbo-frame-loader="eager"
-      data-controller="membercard channelSidebar"
-      data-action="click->membercard#remove_new_message_signal click->channelSidebar#close"
-    >
-      <img
-        src=<%= member.avatar_url %>
-        class="block w-10 h-10 rounded-lg self-center"
-      >
-      <span class="block self-center text-noto-18-700 text-grey-soft">
-        <%= member.username %>
-      </span>
-
-      <div
-        class="absolute h-2 w-2 bg-red rounded-full hidden"
-        id=<%="#{dom_id(user)}_#{dom_id(member)}_new_message_signal"%>
-        data-membercard-target = "newMessageSignal"
-      ></div>
-    </a>
-  <% end %>
-</div>
+<%= render(
+  partial: 'partials/workspace_channel/members',
+  locals: {
+    workspace:,
+    channel_members:,
+    user:,
+    channel: workspace_channel,
+  }
+) %>
 
 <div class="w-full
             flex

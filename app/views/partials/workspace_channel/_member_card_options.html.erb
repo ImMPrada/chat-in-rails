@@ -1,0 +1,46 @@
+<div class="flex gap-2">
+  <a class="fill-white
+            hover:cursor-pointer
+            hover:fill-red"
+    href=<%= workspace_user_path(workspace, member) %>
+    data-turbo-frame="tool_sidebar"
+  >
+    <%= render(Primer::Beta::Octicon.new(:"comment-discussion", size: :medium)) %>
+  </a>
+</div>
+
+<% if policy(workspace).remove_member_from_channel?(channel, member) %>
+  <div class="flex gap-2">
+    <a class="fill-white
+              hover:cursor-pointer
+              hover:fill-red"
+      href=<%= workspace_channel_member_path(workspace, channel, member) %>
+      data-turbo-method="delete"
+    >
+      <%= render(Primer::Beta::Octicon.new(:"x-circle-fill", size: :small)) %>
+    </a>
+  </div>
+<% end %>
+
+<% if policy(workspace).modify_member_role?(member) %>
+  <div class="flex gap-2">
+    <a class=<%="#{member.admin?(workspace) ? 'fill-green' : 'fill-white'}
+              hover:cursor-pointer"%>
+      href=<%= workspace_channel_member_path(
+        workspace,
+        channel,
+        member
+      ) %>
+      data-turbo-method="patch"
+    >
+      <%= render(Primer::Beta::Octicon.new(:copilot, size: :medium)) %>
+    </a>
+  </div>
+<% end %>
+
+<button class="block
+            fill-white"
+  data-action="click->membercard#closeOptions"
+>
+  <%= render(Primer::Beta::Octicon.new(:x, size: :medium)) %>
+</button>

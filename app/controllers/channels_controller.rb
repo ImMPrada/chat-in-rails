@@ -8,6 +8,9 @@ class ChannelsController < ApplicationController
     @members = workspace.users
     @channel_members = channel.users
     @messages = channel.messages.order(created_at: :asc)
+  rescue ActiveRecord::RecordNotFound => _e
+    general_channel = workspace.channels.find_by(name: Channel::BASIC_CHANNEL_NAME)
+    redirect_to workspace_channel_path(workspace, general_channel)
   end
 
   def index
@@ -30,18 +33,32 @@ class ChannelsController < ApplicationController
   def create
     channel_creator = Channels::Creator.new(channel_params,
                                             current_user,
-                                            workspace,
-                                            current_user.id)
+                                            workspace)
     channel = channel_creator.commit
     return succeed_channel_creation(channel) if channel
 
     failed_channel_creation(channel_creator.errors_messages.join(', '))
   end
 
+  def update
+    channel_updater = Channels::Updater.new(channel_params,
+                                            channel)
+    @channel = channel_updater.commit
+  end
+
+  def destroy
+    channel.destroy
+  end
+
+  def options
+    @channel = Channel.find(params[:channel_id])
+    workspace
+  end
+
   private
 
   def channel_params
-    params.require(:channel).permit(:name, :description)
+    params.require(:channel).permit(:name, :description, :public)
   end
 
   def workspace

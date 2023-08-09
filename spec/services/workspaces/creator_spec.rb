@@ -69,7 +69,7 @@ RSpec.describe Workspaces::Creator do
       end
 
       it 'creates a channel named "general"' do
-        expect(Channel.first.name).to eq 'general'
+        expect(Channel.first.name).to eq Channel::BASIC_CHANNEL_NAME
       end
 
       it 'creates channel user by adding the owner user to the channel' do

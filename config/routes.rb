@@ -21,8 +21,13 @@ Rails.application.routes.draw do
   resources :workspaces, only: %i[show new create] do
     resources :invitations, only: %i[create]
 
-    resources :channels, only: %i[index show new create] do
+    resources :channels, only: %i[index show new create destroy update] do
       resources :messages, only: %i[index create]
+      resources :members, only: %i[new create destroy update] do
+        get 'options', to: 'members#options'
+      end
+
+      get 'options', to: 'channels#options'
     end
 
     resources :users, only: %i[show] do

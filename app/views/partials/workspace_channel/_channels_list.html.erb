@@ -24,21 +24,17 @@
   >
     <h2 class="text-noto-18-700 text-white">Channels</h2>
 
-    <a class="block
-              w-6
-              h-6
-              bg-black-soft
-              text-white
-              text-center
-              fill-white"
-      data-turbo-frame="new-channel-modal"
-      data-turbo-frame-loading="eager"
-      data-action="click->loading#start"
-      data-loading-turbotarget-value="new-channel-modal"
-      href=<%= new_workspace_channel_path(workspace) %>
-    >
-      <%= render(Primer::Beta::Octicon.new(:plus, size: :medium)) %>
-    </a>
+    <% if policy(workspace).add_channel? %>
+      <%= link_to(
+        "+",
+        new_workspace_channel_path(workspace),
+        data: {
+          turbo_frame: "modal",
+          turbo_frame_loading: "eager"
+        },
+        class: "block w-6 h-6 bg-black-soft text-white text-center"
+      ) %>
+    <% end %>
   </div>
 
   <form class="block flex flex-col pt-5 pr-5 pl-8 mb-8" data-turbo="false" accept-charset="UTF-8">
@@ -87,20 +83,16 @@
             overflow-y-auto
             row-start-2
             col-start-1"
+  id="channels_list"
 >
-  <% channels.each do |workspace_channel| %> 
-    <a
-      class="block flex gap-3"
-      href=<%= workspace_channel_path(workspace, workspace_channel) %>
-    >
-      <img
-        src=<%= workspace_channel.avatar_url %>
-        class="block w-11 h-11 rounded-lg self-center"
-      >
-      <span class="block self-center text-noto-18-700 text-white">
-        <%= workspace_channel.name.upcase %>
-      </span>
-    </a>
+  <% channels.each do |channel| %> 
+    <%= render(
+      partial: 'partials/workspace_channel/channel_card',
+      locals: {
+        channel:,
+        workspace:
+      }
+    ) %>
   <% end %>
 </div>
 

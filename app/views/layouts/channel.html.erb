@@ -3,6 +3,9 @@
   <head>
     <title>ChatInRails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <% if Rails.env == 'development' %>
+      <%= tag :meta, name: :rails_env, content: Rails.env %>
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -14,6 +17,8 @@
   </head>
 
   <body class="bg-black">
+    <%= turbo_stream_from @workspace, "workspace" %>
+    <div class="hidden" id="singleton_global_data" data-current-user-id=<%= current_user.id %>></div>
     <div id="notifications_bar" class="block min-w-full text-center absolute">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -21,6 +26,6 @@
     <div class="container min-w-full h-screen flex bg-black-soft" data-controller="loading">
       <%= yield %>
     </div>
-    <%= turbo_frame_tag "new-channel-modal" %>
+    <%= turbo_frame_tag "modal" %>
   </body>
 </html>

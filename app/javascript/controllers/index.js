@@ -16,6 +16,9 @@ import ChannelSidebar from "./channel_sidebar_controller"
 import ChannelToolbar from "./channel_toolbar_controller"
 import Loading from "./loading_controller"
 import InvitationUrl from "./invitation_url_controller"
+import NewChannelModal from "./new_channel_modal_controller"
+import ChannelCard from "./channel_card_controller"
+import MemberCard from "./member_card_controller"
 
 application.register("membercard", MemberCardController)
 application.register("new_message_form", NewMessageFormController)
@@ -23,3 +26,6 @@ application.register("channelSidebar", ChannelSidebar)
 application.register("channelToolbar", ChannelToolbar)
 application.register("loading", Loading)
 application.register("invitation-url", InvitationUrl)
+application.register("new-channel-modal", NewChannelModal)
+application.register("channel-card", ChannelCard)
+application.register("member-card", MemberCard)

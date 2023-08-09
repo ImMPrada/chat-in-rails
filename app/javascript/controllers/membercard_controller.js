@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   static targets = ["newMessageSignal"]
+  static values = { optionslistid: String }
 
   remove_new_message_signal() {
     const memberCard =  this.newMessageSignalTarget
@@ -37,5 +38,24 @@ export default class extends Controller {
     </div>`;
 
     console.log({toolBar})
+  }
+
+  showOptions() {
+    const optionsList = document.getElementById(this.optionslistidValue)
+    if(!optionsList) return
+
+    optionsList.classList.remove('hidden')
+  }
+
+  closeOptions() {
+    const optionsList = document.getElementById(this.optionslistidValue)
+    if(!optionsList) return
+
+    optionsList.classList.add('hidden')
+  }
+
+  hideSidebar() {
+    const toolBar = document.getElementById('channel_sidebar')
+    toolBar.classList.add('max-xl:hidden')
   }
 }

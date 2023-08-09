@@ -11,7 +11,7 @@ RSpec.describe Invitations::Registrar do
 
   describe '#commit' do
     describe 'when there is no problem' do
-      before { Channel.create(name: 'general', workspace:) }
+      before { Channel.create(name: Channel::BASIC_CHANNEL_NAME, workspace:) }
   
       it 'adds user to workspace' do
         expect { registrar.commit }.to change(WorkspaceUser, :count).by(1)

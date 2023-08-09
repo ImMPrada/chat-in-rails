@@ -11,6 +11,44 @@ class WorkspacePolicy < ApplicationPolicy
     user.admin?(workspace)
   end
 
+  def add_member?(channel)
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
+
+    user.admin?(workspace)
+  end
+
+  def add_channel?
+    user.admin?(workspace)
+  end
+
+  def modify_member_role?(member)
+    user.owner?(workspace) && user != member
+  end
+
+  def remove_member_from_channel?(channel, member)
+    return false if channel.public || @user == member
+
+    user.admin?(workspace)
+  end
+
+  def leave_channel?(channel)
+    return false if channel.public || user.owner?(workspace)
+
+    channel.users.include?(user)
+  end
+
+  def delete_channel?(channel)
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
+
+    user.admin?(workspace)
+  end
+
+  def modify_channel_privacy?(channel)
+    return false if channel.name == Channel::BASIC_CHANNEL_NAME
+
+    user.admin?(workspace)
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

@@ -1,0 +1,25 @@
+<div class="w-full
+            flex
+            flex-col
+            gap-5
+            pb-6
+            pr-5
+            pl-8
+            bg-black
+            overflow-y-auto
+            row-start-2
+            col-start-1"
+  id=<%= "#{dom_id(channel)}_members_list" %>
+>
+  <% channel_members.each do |member| %>
+    <%= render(
+      partial: 'partials/workspace_channel/member_card',
+      locals: {
+        workspace:,
+        member:,
+        user:,
+        channel:,
+      }
+    ) %>
+  <% end %>
+</div>

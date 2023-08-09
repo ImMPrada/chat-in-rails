@@ -41,7 +41,7 @@ module Workspaces
     end
 
     def workspace_basic_channel
-      @workspace_basic_channel ||= Channel.new(name: 'general', workspace:)
+      @workspace_basic_channel ||= Channel.new(name: Channel::BASIC_CHANNEL_NAME, workspace:)
     end
 
     def channel_user

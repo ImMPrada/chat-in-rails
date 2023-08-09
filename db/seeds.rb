@@ -27,7 +27,7 @@ admin_user = User.create(email: 'mapra99+test@gmail.com',
                          username: 'mapra.1999')
 
 workspace = Workspace.create(name: 'BrodGden')
-general_channel = Channel.create(name: 'general', workspace:)
+general_channel = Channel.create(name: Channel::BASIC_CHANNEL_NAME, workspace:)
 
 WorkspaceUser.create(user: owner_user,
                      workspace:,
